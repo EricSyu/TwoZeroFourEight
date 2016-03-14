@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int [][]view_record = new int[5][5];
     private int GameOver;
-    private boolean gameoverLeft_flag, gameoverRight_flag, gameoverUP_flag, gameoverDown_flag;
-    private boolean random_flag;
+    private boolean random_flag,gameover_flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initValue(){
         random_flag = false;
-        gameoverLeft_flag = false;
-        gameoverRight_flag = false;
-        gameoverUP_flag = false;
-        gameoverDown_flag = false;
+        gameover_flag = false;
         GameOver = 0;
         for(int i=0; i<5; i++){
             for(int j=0; j<5; j++){
@@ -125,18 +121,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchLeft(i);
                             SwapLeft(i);
                         }
-                        if(random_flag && GameOver<=14){
-                            RandomView();
-                            RandomView();
-                            random_flag = false;
-                        }
-                        else if(random_flag && GameOver == 15){
-                            RandomView();
-                            random_flag = false;
-                        }
-                        else if(gameoverLeft_flag && gameoverRight_flag && gameoverUP_flag && gameoverDown_flag && GameOver == 16){
-                            GameOverDialog();
-                        }
+                        GameOverJudge();
                         showView();
                         Log.i(TAG, "向左");
                     }
@@ -145,18 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchRight(i);
                             SwapRight(i);
                         }
-                        if(random_flag && GameOver<=14){
-                            RandomView();
-                            RandomView();
-                            random_flag = false;
-                        }
-                        else if(random_flag && GameOver == 15){
-                            RandomView();
-                            random_flag = false;
-                        }
-                        else if(gameoverLeft_flag && gameoverRight_flag && gameoverUP_flag && gameoverDown_flag && GameOver == 16){
-                            GameOverDialog();
-                        }
+                        GameOverJudge();
                         showView();
                         Log.i(TAG, "向右");
                     }
@@ -165,18 +139,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchUp(i);
                             SwapUp(i);
                         }
-                        if(random_flag && GameOver<=14){
-                            RandomView();
-                            RandomView();
-                            random_flag = false;
-                        }
-                        else if(random_flag && GameOver == 15){
-                            RandomView();
-                            random_flag = false;
-                        }
-                        else if(gameoverLeft_flag && gameoverRight_flag && gameoverUP_flag && gameoverDown_flag && GameOver == 16){
-                            GameOverDialog();
-                        }
+                        GameOverJudge();
                         showView();
                         Log.i(TAG, "向上");
                     }
@@ -185,18 +148,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchDown(i);
                             SwapDown(i);
                         }
-                        if(random_flag && GameOver<=14){
-                            RandomView();
-                            RandomView();
-                            random_flag = false;
-                        }
-                        else if(random_flag && GameOver == 15){
-                            RandomView();
-                            random_flag = false;
-                        }
-                        else if(gameoverLeft_flag && gameoverRight_flag && gameoverUP_flag && gameoverDown_flag && GameOver == 16){
-                            GameOverDialog();
-                        }
+                        GameOverJudge();
                         showView();
                         Log.i(TAG, "向下");
                     }
@@ -314,12 +266,8 @@ public class MainActivity extends AppCompatActivity {
                     view_record[index][j] = view_record[index][j+1];
                     view_record[index][j+1] = tmp;
                     random_flag = true;
-                    gameoverLeft_flag = false;
                 }
             }
-        }
-        if(!random_flag){
-            gameoverLeft_flag = true;
         }
     }
 
@@ -331,12 +279,8 @@ public class MainActivity extends AppCompatActivity {
                     view_record[index][j] = view_record[index][j-1];
                     view_record[index][j-1] = tmp;
                     random_flag = true;
-                    gameoverRight_flag = false;
                 }
             }
-        }
-        if(!random_flag) {
-            gameoverRight_flag = true;
         }
     }
 
@@ -348,12 +292,8 @@ public class MainActivity extends AppCompatActivity {
                     view_record[j][index] = view_record[j+1][index];
                     view_record[j+1][index] = tmp;
                     random_flag = true;
-                    gameoverUP_flag = false;
                 }
             }
-        }
-        if(!random_flag) {
-            gameoverUP_flag = true;
         }
     }
 
@@ -365,12 +305,8 @@ public class MainActivity extends AppCompatActivity {
                     view_record[j][index] = view_record[j-1][index];
                     view_record[j-1][index] = tmp;
                     random_flag = true;
-                    gameoverDown_flag = false;
                 }
             }
-        }
-        if(!random_flag) {
-            gameoverDown_flag = true;
         }
     }
 
@@ -399,172 +335,108 @@ public class MainActivity extends AppCompatActivity {
     private void setRandomView(int num) {
         switch (num){
             case 1:
-                if(view_record[1][1] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[1][1] = 2;
-                    view11.setText(String.valueOf(view_record[1][1]));
-                }
+                setView(1,1);
                 break;
             case 2:
-                if(view_record[1][2] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[1][2] = 2;
-                    view11.setText(String.valueOf(view_record[1][2]));
-                }
+                setView(1,2);
                 break;
             case 3:
-                if(view_record[1][3] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[1][3] = 2;
-                    view11.setText(String.valueOf(view_record[1][3]));
-                }
+                setView(1,3);
                 break;
             case 4:
-                if(view_record[1][4] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[1][4] = 2;
-                    view11.setText(String.valueOf(view_record[1][4]));
-                }
+                setView(1,4);
                 break;
 
             case 5:
-                if(view_record[2][1] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[2][1] = 2;
-                    view11.setText(String.valueOf(view_record[2][1]));
-                }
+                setView(2,1);
                 break;
             case 6:
-                if(view_record[2][2] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[2][2] = 2;
-                    view11.setText(String.valueOf(view_record[2][2]));
-                }
+                setView(2,2);
                 break;
             case 7:
-                if(view_record[2][3] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[2][3] = 2;
-                    view11.setText(String.valueOf(view_record[2][3]));
-                }
+                setView(2,3);
                 break;
             case 8:
-                if(view_record[2][4] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[2][4] = 2;
-                    view11.setText(String.valueOf(view_record[2][4]));
-                }
+                setView(2,4);
                 break;
 
             case 9:
-                if(view_record[3][1] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[3][1] = 2;
-                    view11.setText(String.valueOf(view_record[3][1]));
-                }
+                setView(3,1);
                 break;
             case 10:
-                if(view_record[3][2] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[3][2] = 2;
-                    view11.setText(String.valueOf(view_record[3][2]));
-                }
+                setView(3,2);
                 break;
             case 11:
-                if(view_record[3][3] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[3][3] = 2;
-                    view11.setText(String.valueOf(view_record[3][3]));
-                }
+                setView(3,3);
                 break;
             case 12:
-                if(view_record[3][4] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[3][4] = 2;
-                    view11.setText(String.valueOf(view_record[3][4]));
-                }
+                setView(3,4);
                 break;
 
             case 13:
-                if(view_record[4][1] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[4][1] = 2;
-                    view11.setText(String.valueOf(view_record[4][1]));
-                }
+                setView(4,1);
                 break;
             case 14:
-                if(view_record[4][2] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[4][2] = 2;
-                    view11.setText(String.valueOf(view_record[4][2]));
-                }
+                setView(4,2);
                 break;
             case 15:
-                if(view_record[4][3] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[4][3] = 2;
-                    view11.setText(String.valueOf(view_record[4][3]));
-                }
+                setView(4,3);
                 break;
             case 16:
-                if(view_record[4][4] != 0){
-                    RandomView();
-                }
-                else{
-                    GameOver++;
-                    view_record[4][4] = 2;
-                    view11.setText(String.valueOf(view_record[4][4]));
-                }
+                setView(4,4);
                 break;
         }
     }
 
-    public void GameOverDialog(){
+    private  void setView(int i, int j){
+        if(view_record[i][j] != 0){
+            RandomView();
+        }
+        else{
+            GameOver++;
+            view_record[i][j] = 2;
+            view11.setText(String.valueOf(view_record[i][j]));
+            gameover_flag = true;
+            Judgement();
+            if(gameover_flag){
+                GameOverDialog();
+            }
+        }
+    }
+
+    private void Judgement(){
+        for(int i=1; i<4; i++){
+            for(int j=1; j<4; j++){
+                if(view_record[i][j] == view_record[i][j+1] || view_record[i][j] == view_record[i+1][j] || view_record[i][j] == 0){
+                    gameover_flag = false;
+                }
+            }
+        }
+        for(int i=1; i<4; i++){
+            if(view_record[i][4] == view_record[i+1][4] || view_record[i][4] == 0){
+                gameover_flag = false;
+            }
+            if(view_record[4][i] == 0 || view_record[4][4] == 0){
+                gameover_flag = false;
+            }
+        }
+    }
+
+    private void GameOverJudge(){
+        if(random_flag && GameOver<=14){
+            RandomView();
+            RandomView();
+            random_flag = false;
+        }
+        else if(random_flag && GameOver == 15){
+            RandomView();
+            random_flag = false;
+        } else if (gameover_flag && GameOver == 16){
+            GameOverDialog();
+        }
+    }
+
+    private void GameOverDialog(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setTitle(R.string.dia_gameover);
         dialog.setMessage(getString(R.string.dia_msg));
@@ -598,3 +470,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
