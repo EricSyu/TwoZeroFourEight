@@ -17,17 +17,17 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private TextView text11, text12, text13, text14;
-    private TextView text21, text22, text23, text24;
-    private TextView text31, text32, text33, text34;
-    private TextView text41, text42, text43, text44;
+    private TextView view11, view12, view13, view14;
+    private TextView view21, view22, view23, view24;
+    private TextView view31, view32, view33, view34;
+    private TextView view41, view42, view43, view44;
 
     private TextView Text_appname, Text_score, Text_bestscore;
     private Button btn_newgame, btn_rank;
 
     private LinearLayout TouchSet;
 
-    private int [][]record = new int[5][5];
+    private int [][]view_record = new int[5][5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,25 +42,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        text11 = (TextView)findViewById(R.id.text11);
-        text12 = (TextView)findViewById(R.id.text12);
-        text13 = (TextView)findViewById(R.id.text13);
-        text14 = (TextView)findViewById(R.id.text14);
+        view11 = (TextView)findViewById(R.id.view11);
+        view12 = (TextView)findViewById(R.id.view12);
+        view13 = (TextView)findViewById(R.id.view13);
+        view14 = (TextView)findViewById(R.id.view14);
 
-        text21 = (TextView)findViewById(R.id.text21);
-        text22 = (TextView)findViewById(R.id.text22);
-        text23 = (TextView)findViewById(R.id.text23);
-        text24 = (TextView)findViewById(R.id.text24);
+        view21 = (TextView)findViewById(R.id.view21);
+        view22 = (TextView)findViewById(R.id.view22);
+        view23 = (TextView)findViewById(R.id.view23);
+        view24 = (TextView)findViewById(R.id.view24);
 
-        text31 = (TextView)findViewById(R.id.text31);
-        text32 = (TextView)findViewById(R.id.text32);
-        text33 = (TextView)findViewById(R.id.text33);
-        text34 = (TextView)findViewById(R.id.text34);
+        view31 = (TextView)findViewById(R.id.view31);
+        view32 = (TextView)findViewById(R.id.view32);
+        view33 = (TextView)findViewById(R.id.view33);
+        view34 = (TextView)findViewById(R.id.view34);
 
-        text41 = (TextView)findViewById(R.id.text41);
-        text42 = (TextView)findViewById(R.id.text42);
-        text43 = (TextView)findViewById(R.id.text43);
-        text44 = (TextView)findViewById(R.id.text44);
+        view41 = (TextView)findViewById(R.id.view41);
+        view42 = (TextView)findViewById(R.id.view42);
+        view43 = (TextView)findViewById(R.id.view43);
+        view44 = (TextView)findViewById(R.id.view44);
 
         Text_appname = (TextView)findViewById(R.id.textView);
         Text_score = (TextView)findViewById(R.id.textView_score);
@@ -79,9 +79,17 @@ public class MainActivity extends AppCompatActivity {
     private void initValue(){
         for(int i=0; i<5; i++){
             for(int j=0; j<5; j++){
-                record[i][j] = 0;
+                view_record[i][j] = 0;
             }
         }
+        view_record[1][1] = 2;
+        view_record[1][2] = 2;
+        view_record[1][3] = 2;
+        view_record[1][4] = 2;
+        view_record[2][1] = 0;
+        view_record[3][1] = 2;
+        view_record[4][1] = 2;
+        showView();
     }
 
     private LinearLayout.OnTouchListener touch_event = new LinearLayout.OnTouchListener(){
@@ -98,19 +106,35 @@ public class MainActivity extends AppCompatActivity {
                     finalX = event.getX();
                     finalY = event.getY();
                     if (initX - finalX > 100){    //left
-                        text11.setText("left");
+                        for(int i=1; i<5; i++){
+                            TouchLeft(i);
+                            SwapLeft(i);
+                        }
+                        showView();
                         Log.i(TAG, "向左");
                     }
-                    if (initX - finalX < -100) {  //right
-                        text11.setText("right");
+                    else if (initX - finalX < -100) {  //right
+                        for(int i=1; i<5; i++){
+                            TouchRight(i);
+                            SwapRight(i);
+                        }
+                        showView();
                         Log.i(TAG, "向右");
                     }
-                    if (initY - finalY > 100){    //up
-                        text11.setText("up");
+                    else if (initY - finalY > 100){    //up
+                        for(int i=1; i<5; i++){
+                            TouchUp(i);
+                            SwapUp(i);
+                        }
+                        showView();
                         Log.i(TAG, "向上");
                     }
-                    if (initY - finalY < -100){   //down
-                        text11.setText("down");
+                    else if (initY - finalY < -100){   //down
+                        for(int i=1; i<5; i++){
+                            TouchDown(i);
+                            SwapDown(i);
+                        }
+                        showView();
                         Log.i(TAG, "向下");
                     }
                     break;
@@ -118,6 +142,172 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    private void TouchLeft(int index){
+        int i = 1, j = 2;
+        while(j < 5){
+
+            while(i < 5 &&view_record[index][i] == 0){
+                i++;
+            }
+            j = i + 1;
+            while(j < 5 && view_record[index][j] == 0){
+                j++;
+            }
+
+            if(j < 5 && view_record[index][i] == view_record[index][j]){
+                view_record[index][i] += view_record[index][j];
+                view_record[index][j] = 0;
+                j++;
+                i = j;
+            }
+            else{
+                i++;
+            }
+        }
+    }
+
+    private void TouchUp(int index){
+        int i = 1, j = 2;
+        while(j < 5){
+
+            while(i < 5 &&view_record[i][index] == 0){
+                i++;
+            }
+            j = i + 1;
+            while(j < 5 && view_record[j][index] == 0){
+                j++;
+            }
+
+            if(j < 5 && view_record[i][index] == view_record[j][index]){
+                view_record[i][index] += view_record[j][index];
+                view_record[j][index] = 0;
+                j++;
+                i = j;
+            }
+            else{
+                i++;
+            }
+        }
+    }
+
+    private void TouchRight(int index){
+        int i = 4, j = 3;
+        while(j > 0){
+
+            while(i > 0 &&view_record[index][i] == 0){
+                i--;
+            }
+            j = i - 1;
+            while(j > 0 && view_record[index][j] == 0){
+                j--;
+            }
+
+            if(j > 0 && view_record[index][i] == view_record[index][j]){
+                view_record[index][i] += view_record[index][j];
+                view_record[index][j] = 0;
+                j--;
+                i = j;
+            }
+            else{
+                i--;
+            }
+        }
+    }
+
+    private void TouchDown(int index){
+        int i = 4, j = 3;
+        while(j > 0){
+
+            while(i > 0 &&view_record[i][index] == 0){
+                i--;
+            }
+            j = i - 1;
+            while(j > 0 && view_record[j][index] == 0){
+                j--;
+            }
+
+            if(j > 0 && view_record[i][index] == view_record[j][index]){
+                view_record[i][index] += view_record[j][index];
+                view_record[j][index] = 0;
+                j--;
+                i = j;
+            }
+            else{
+                i--;
+            }
+        }
+    }
+
+    private void SwapLeft(int index){
+        for(int i=0; i<4; i++){
+            for(int j=1; j<4; j++){
+                if(view_record[index][j]==0){
+                    int tmp = view_record[index][j];
+                    view_record[index][j] = view_record[index][j+1];
+                    view_record[index][j+1] = tmp;
+                }
+            }
+        }
+    }
+
+    private void SwapRight(int index){
+        for(int i=0; i<4; i++){
+            for(int j=4; j>1; j--){
+                if(view_record[index][j]==0){
+                    int tmp = view_record[index][j];
+                    view_record[index][j] = view_record[index][j-1];
+                    view_record[index][j-1] = tmp;
+                }
+            }
+        }
+    }
+
+    private void SwapUp(int index){
+        for(int i=0; i<4; i++){
+            for(int j=1; j<4; j++){
+                if(view_record[j][index]==0){
+                    int tmp = view_record[j][index];
+                    view_record[j][index] = view_record[j+1][index];
+                    view_record[j+1][index] = tmp;
+                }
+            }
+        }
+    }
+
+    private void SwapDown(int index){
+        for(int i=0; i<4; i++){
+            for(int j=4; j>1; j--){
+                if(view_record[j][index]==0){
+                    int tmp = view_record[j][index];
+                    view_record[j][index] = view_record[j-1][index];
+                    view_record[j-1][index] = tmp;
+                }
+            }
+        }
+    }
+
+    private void showView(){
+        view11.setText(String.valueOf(view_record[1][1]));
+        view12.setText(String.valueOf(view_record[1][2]));
+        view13.setText(String.valueOf(view_record[1][3]));
+        view14.setText(String.valueOf(view_record[1][4]));
+
+        view21.setText(String.valueOf(view_record[2][1]));
+        view22.setText(String.valueOf(view_record[2][2]));
+        view23.setText(String.valueOf(view_record[2][3]));
+        view24.setText(String.valueOf(view_record[2][4]));
+
+        view31.setText(String.valueOf(view_record[3][1]));
+        view32.setText(String.valueOf(view_record[3][2]));
+        view33.setText(String.valueOf(view_record[3][3]));
+        view34.setText(String.valueOf(view_record[3][4]));
+
+        view41.setText(String.valueOf(view_record[4][1]));
+        view42.setText(String.valueOf(view_record[4][2]));
+        view43.setText(String.valueOf(view_record[4][3]));
+        view44.setText(String.valueOf(view_record[4][4]));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

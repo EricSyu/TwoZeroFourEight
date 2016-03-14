@@ -90,64 +90,28 @@
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text11"
+                    android:id="@+id/view11"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text12"
+                    android:id="@+id/view12"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text13"
+                    android:id="@+id/view13"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text14"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text21"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text22"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text23"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text24"
+                    android:id="@+id/view14"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -162,28 +126,28 @@
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text31"
+                    android:id="@+id/view21"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text32"
+                    android:id="@+id/view22"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text33"
+                    android:id="@+id/view23"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text34"
+                    android:id="@+id/view24"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -198,28 +162,64 @@
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text41"
+                    android:id="@+id/view31"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text42"
+                    android:id="@+id/view32"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text43"
+                    android:id="@+id/view33"
                     android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/text44"
+                    android:id="@+id/view34"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/view41"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/view42"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/view43"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/view44"
                     android:layout_weight="1" />
             </LinearLayout>
         </LinearLayout>
