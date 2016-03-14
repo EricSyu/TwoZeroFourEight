@@ -1,5 +1,7 @@
 package homework2.group.twozerofoureight;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.HashSet;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout TouchSet;
 
     private int [][]view_record = new int[5][5];
+    private int GameOver;
+    private boolean random_flag,gameover_flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +84,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initValue(){
+        random_flag = false;
+        gameover_flag = false;
+        GameOver = 0;
         for(int i=0; i<5; i++){
             for(int j=0; j<5; j++){
                 view_record[i][j] = 0;
             }
         }
-        view_record[1][1] = 2;
-        view_record[1][2] = 2;
-        view_record[1][3] = 2;
-        view_record[1][4] = 2;
-        view_record[2][1] = 0;
-        view_record[3][1] = 2;
-        view_record[4][1] = 2;
+        RandomView();
+        RandomView();
         showView();
+    }
+
+    private void RandomView(){
+        Random random = new Random();
+        int num = random.nextInt(16)+1;
+        setRandomView(num);
     }
 
     private LinearLayout.OnTouchListener touch_event = new LinearLayout.OnTouchListener(){
@@ -110,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchLeft(i);
                             SwapLeft(i);
                         }
+                        GameOverJudge();
                         showView();
                         Log.i(TAG, "向左");
                     }
@@ -118,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchRight(i);
                             SwapRight(i);
                         }
+                        GameOverJudge();
                         showView();
                         Log.i(TAG, "向右");
                     }
@@ -126,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchUp(i);
                             SwapUp(i);
                         }
+                        GameOverJudge();
                         showView();
                         Log.i(TAG, "向上");
                     }
@@ -134,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchDown(i);
                             SwapDown(i);
                         }
+                        GameOverJudge();
                         showView();
                         Log.i(TAG, "向下");
                     }
@@ -160,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 view_record[index][j] = 0;
                 j++;
                 i = j;
+                GameOver--;
             }
             else{
                 i++;
@@ -171,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         int i = 1, j = 2;
         while(j < 5){
 
-            while(i < 5 &&view_record[i][index] == 0){
+            while(i < 5 && view_record[i][index] == 0){
                 i++;
             }
             j = i + 1;
@@ -184,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 view_record[j][index] = 0;
                 j++;
                 i = j;
+                GameOver--;
             }
             else{
                 i++;
@@ -208,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 view_record[index][j] = 0;
                 j--;
                 i = j;
+                GameOver--;
             }
             else{
                 i--;
@@ -232,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
                 view_record[j][index] = 0;
                 j--;
                 i = j;
+                GameOver--;
             }
             else{
                 i--;
@@ -242,10 +261,11 @@ public class MainActivity extends AppCompatActivity {
     private void SwapLeft(int index){
         for(int i=0; i<4; i++){
             for(int j=1; j<4; j++){
-                if(view_record[index][j]==0){
+                if(view_record[index][j]==0 && view_record[index][j+1]!=0){
                     int tmp = view_record[index][j];
                     view_record[index][j] = view_record[index][j+1];
                     view_record[index][j+1] = tmp;
+                    random_flag = true;
                 }
             }
         }
@@ -254,10 +274,11 @@ public class MainActivity extends AppCompatActivity {
     private void SwapRight(int index){
         for(int i=0; i<4; i++){
             for(int j=4; j>1; j--){
-                if(view_record[index][j]==0){
+                if(view_record[index][j]==0 && view_record[index][j-1]!=0){
                     int tmp = view_record[index][j];
                     view_record[index][j] = view_record[index][j-1];
                     view_record[index][j-1] = tmp;
+                    random_flag = true;
                 }
             }
         }
@@ -266,10 +287,11 @@ public class MainActivity extends AppCompatActivity {
     private void SwapUp(int index){
         for(int i=0; i<4; i++){
             for(int j=1; j<4; j++){
-                if(view_record[j][index]==0){
+                if(view_record[j][index]==0 && view_record[j+1][index]!=0){
                     int tmp = view_record[j][index];
                     view_record[j][index] = view_record[j+1][index];
                     view_record[j+1][index] = tmp;
+                    random_flag = true;
                 }
             }
         }
@@ -278,10 +300,11 @@ public class MainActivity extends AppCompatActivity {
     private void SwapDown(int index){
         for(int i=0; i<4; i++){
             for(int j=4; j>1; j--){
-                if(view_record[j][index]==0){
+                if(view_record[j][index]==0 && view_record[j-1][index]!=0){
                     int tmp = view_record[j][index];
                     view_record[j][index] = view_record[j-1][index];
                     view_record[j-1][index] = tmp;
+                    random_flag = true;
                 }
             }
         }
@@ -309,6 +332,125 @@ public class MainActivity extends AppCompatActivity {
         view44.setText(String.valueOf(view_record[4][4]));
     }
 
+    private void setRandomView(int num) {
+        switch (num){
+            case 1:
+                setView(1,1);
+                break;
+            case 2:
+                setView(1,2);
+                break;
+            case 3:
+                setView(1,3);
+                break;
+            case 4:
+                setView(1,4);
+                break;
+
+            case 5:
+                setView(2,1);
+                break;
+            case 6:
+                setView(2,2);
+                break;
+            case 7:
+                setView(2,3);
+                break;
+            case 8:
+                setView(2,4);
+                break;
+
+            case 9:
+                setView(3,1);
+                break;
+            case 10:
+                setView(3,2);
+                break;
+            case 11:
+                setView(3,3);
+                break;
+            case 12:
+                setView(3,4);
+                break;
+
+            case 13:
+                setView(4,1);
+                break;
+            case 14:
+                setView(4,2);
+                break;
+            case 15:
+                setView(4,3);
+                break;
+            case 16:
+                setView(4,4);
+                break;
+        }
+    }
+
+    private  void setView(int i, int j){
+        if(view_record[i][j] != 0){
+            RandomView();
+        }
+        else{
+            GameOver++;
+            view_record[i][j] = 2;
+            view11.setText(String.valueOf(view_record[i][j]));
+            gameover_flag = true;
+            Judgement();
+            if(gameover_flag){
+                GameOverDialog();
+            }
+        }
+    }
+
+    private void Judgement(){
+        for(int i=1; i<4; i++){
+            for(int j=1; j<4; j++){
+                if(view_record[i][j] == view_record[i][j+1] || view_record[i][j] == view_record[i+1][j] || view_record[i][j] == 0){
+                    gameover_flag = false;
+                }
+            }
+        }
+        for(int i=1; i<4; i++){
+            if(view_record[i][4] == view_record[i+1][4]){
+                gameover_flag = false;
+            }
+            if(view_record[4][i] == view_record[4][i+1]){
+                gameover_flag = false;
+            }
+            if(view_record[4][4] == 0){
+                gameover_flag = false;
+            }
+        }
+    }
+
+    private void GameOverJudge(){
+        if(random_flag && GameOver<=14){
+            RandomView();
+            RandomView();
+            random_flag = false;
+        }
+        else if(random_flag && GameOver == 15){
+            RandomView();
+            random_flag = false;
+        } else if (gameover_flag && GameOver == 16){
+            GameOverDialog();
+        }
+    }
+
+    private void GameOverDialog(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(R.string.dia_gameover);
+        dialog.setMessage(getString(R.string.dia_msg));
+        dialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dialog.show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -331,3 +473,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
