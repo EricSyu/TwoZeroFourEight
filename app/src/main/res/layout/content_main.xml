@@ -12,8 +12,217 @@
     tools:context="homework2.group.twozerofoureight.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="2048"
+                android:id="@+id/textView"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/textView_score"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:layout_weight="1"
+                android:id="@+id/textView_bestscore" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.04">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NewGame"
+                android:id="@+id/btn_newgame" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rank"
+                android:id="@+id/btn_rank" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.78"
+            android:id="@+id/TouchLayout">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text11"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text12"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text13"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text14"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text21"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text22"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text23"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text24"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text31"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text32"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text33"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text34"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text41"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text42"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text43"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/text44"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>
