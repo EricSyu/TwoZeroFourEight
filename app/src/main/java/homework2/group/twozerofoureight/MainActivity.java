@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView view41, view42, view43, view44;
 
     private TextView Text_appname, Text_score, Text_bestscore;
+    private int score,bestscore;
     private Button btn_newgame, btn_rank;
 
     private LinearLayout TouchSet;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initValue(){
+        score = 0;
         random_flag = false;
         gameover_flag = false;
         GameOver = 0;
@@ -121,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                             TouchLeft(i);
                             SwapLeft(i);
                         }
+                        scoreCalculate();
+                        Text_score.setText(""+score);
                         GameOverJudge();
                         showView();
                         Log.i(TAG, "向左");
@@ -130,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
                             TouchRight(i);
                             SwapRight(i);
                         }
+                        scoreCalculate();
+                        Text_score.setText("" + score);
                         GameOverJudge();
                         showView();
                         Log.i(TAG, "向右");
@@ -139,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
                             TouchUp(i);
                             SwapUp(i);
                         }
+                        scoreCalculate();
+                        Text_score.setText("" + score);
                         GameOverJudge();
                         showView();
                         Log.i(TAG, "向上");
@@ -148,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
                             TouchDown(i);
                             SwapDown(i);
                         }
+                        scoreCalculate();
+                        Text_score.setText(""+score);
                         GameOverJudge();
                         showView();
                         Log.i(TAG, "向下");
@@ -451,6 +461,17 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    private void scoreCalculate(){
+
+        for (int i=1; i<5; i++){
+            for (int j=1; j<5; j++){
+                int math = (int)(Math.log(view_record[i][j])/Math.log(2)) -1;
+                score = score + math*view_record[i][j];
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
