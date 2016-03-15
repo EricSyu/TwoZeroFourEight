@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/AnimationCell.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/AnimationGrid.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/AnimationGrid.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/AnimationRect.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Cell.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Component.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Const.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Grid.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Grid.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/InputListener.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/InputListener.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/MainGame.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/MainView.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Rect.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Tile.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/background_rectangle.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_1024.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_128.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_16.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_2.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_2048.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_256.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_32.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_4.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_4096.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_512.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_64.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_8.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/fade_rectangle.xml" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_action_refresh.png" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_action_settings.png" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_action_undo.png" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/light_up_rectangle.xml" charset="x-windows-950" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
