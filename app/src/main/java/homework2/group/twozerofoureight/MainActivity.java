@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setListeners(){
         TouchSet.setOnTouchListener(touch_event);
+        btn_newgame.setOnClickListener(reset_game);
     }
 
     private void initValue(){
@@ -118,6 +119,14 @@ public class MainActivity extends AppCompatActivity {
         int num = random.nextInt(16)+1;
         setRandomView(num);
     }
+
+    private Button.OnClickListener reset_game = new Button.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            ResetDialog();
+        }
+    };
 
     private LinearLayout.OnTouchListener touch_event = new LinearLayout.OnTouchListener(){
         float initX, initY;
@@ -477,8 +486,27 @@ public class MainActivity extends AppCompatActivity {
     private void GameOverDialog(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setTitle(R.string.dia_gameover);
-        dialog.setMessage(getString(R.string.dia_msg));
+        dialog.setMessage(getString(R.string.dia_gameover_msg));
         dialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void ResetDialog(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(R.string.dia_reset);
+        dialog.setMessage(getString(R.string.dia_reset_msg));
+        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                initValue();
+            }
+        });
+        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
