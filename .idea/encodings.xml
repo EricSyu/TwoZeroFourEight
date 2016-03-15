@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/AnimationCell.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/AnimationGrid.java" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/AnimationGrid.java" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/AnimationRect.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Cell.java" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Component.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Const.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Grid.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Game.java" charset="x-windows-950" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/GameView.java" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Grid.java" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/InputListener.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/InputListener.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/MainGame.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/MainView.java" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Rect.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/homework2/group/twozerofoureight/Tile.java" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/background_rectangle.xml" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle.xml" charset="x-windows-950" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/cell_rectangle_1024.xml" charset="x-windows-950" />

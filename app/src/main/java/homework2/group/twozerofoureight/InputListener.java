@@ -22,9 +22,9 @@ public class InputListener implements View.OnTouchListener {
     private int veryLastDirection = 1;
     private boolean hasMoved = false;
 
-    MainView mView;
+    GameView mView;
 
-    public InputListener(MainView view) {
+    public InputListener(GameView view) {
         super();
         this.mView = view;
     }

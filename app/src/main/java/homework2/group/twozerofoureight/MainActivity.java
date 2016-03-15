@@ -10,9 +10,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected final static String TAG = "MainActivity";
+    public GameView view;
 
-    MainView view;
     public static final String WIDTH = "width";
     public static final String HEIGHT = "height";
     public static final String SCORE = "score";
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        view = new MainView(getBaseContext());
+        view = new GameView(getBaseContext());
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         view.hasSaveState = settings.getBoolean("save_state", false);

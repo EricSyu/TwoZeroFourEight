@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainGame {
+public class Game {
 
     public static final int SPAWN_ANIMATION = -1;
     public static final int MOVE_ANIMATION = 0;
@@ -16,9 +16,9 @@ public class MainGame {
 
     public static final int FADE_GLOBAL_ANIMATION = 0;
 
-    public static final long MOVE_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME;
-    public static final long SPAWN_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME;
-    public static final long NOTIFICATION_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME * 5;
+    public static final long MOVE_ANIMATION_TIME = GameView.BASE_ANIMATION_TIME;
+    public static final long SPAWN_ANIMATION_TIME = GameView.BASE_ANIMATION_TIME;
+    public static final long NOTIFICATION_ANIMATION_TIME = GameView.BASE_ANIMATION_TIME * 5;
     public static final long NOTIFICATION_DELAY_TIME = MOVE_ANIMATION_TIME + SPAWN_ANIMATION_TIME;
     private static final String HIGH_SCORE = "high score";
 
@@ -55,9 +55,9 @@ public class MainGame {
 
     private Context mContext;
 
-    private MainView mView;
+    private GameView mView;
 
-    public MainGame(Context context, MainView view) {
+    public Game(Context context, GameView view) {
         mContext = context;
         mView = view;
         endingMaxValue = (int) Math.pow(2, view.numCellTypes - 1);
