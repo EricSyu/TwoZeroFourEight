@@ -527,10 +527,12 @@ public class MainActivity extends AppCompatActivity {
         mp.start();
     }
     private void stopMusic(){
-        if( mp == null || isStoped){
-            mp.stop();
-            isStoped = true;
-        }
+        if( mp == null || isStoped)
+            return;
+
+        mp.stop();
+        isStoped = true;
+
     }
     //Build environment for playing music
     public static MediaPlayer create(Context context, int resid){
@@ -548,6 +550,17 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Play music error!", e.toString());
             return null;
         }
+    }
+
+    public void onPause(){
+        stopMusic();
+        super.onPause();
+    }
+
+    public void onStop() {
+        stopMusic();
+        super.onStop();
+
     }
 }
 
