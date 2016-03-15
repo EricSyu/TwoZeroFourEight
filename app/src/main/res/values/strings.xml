@@ -3,10 +3,15 @@
     <string name="action_settings">Settings</string>
 
     <string name="dia_gameover">GameOver</string>
-    <string name="dia_msg">遊戲結束</string>
+    <string name="dia_gameover_msg">遊戲結束</string>
+    <string name="dia_reset">Reset</string>
+    <string name="dia_reset_msg">是否要重新開始遊戲</string>
+
 
     <string name="title_score">SCORE</string>
     <string name="title_best">BEST</string>
     <string name="title_newgame">NEWGAME</string>
     <string name="title_rank">RANK</string>
+    <string name="title_star">STAR</string>
+    <string name="title_exchange">EXCHANGE</string>
 </resources>
