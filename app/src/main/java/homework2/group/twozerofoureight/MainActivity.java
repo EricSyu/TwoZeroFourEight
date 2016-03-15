@@ -2,6 +2,8 @@ package homework2.group.twozerofoureight;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private int [][]view_record = new int[5][5];
     private int GameOver;
     private boolean random_flag,gameover_flag;
+
+    //Sound
+    private static final int SOUND_COUNT = 3;
+    private int when_slide;
+    private int when_plus;
+    private int ui_click;
+    private SoundPool soundPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
         btn_rank = (Button)findViewById(R.id.btn_rank);
 
         TouchSet = (LinearLayout)findViewById(R.id.TouchLayout);
+
+        //Sound
+        soundPool = new SoundPool(SOUND_COUNT, AudioManager.STREAM_MUSIC, 0);
+        ui_click = soundPool.load(this, R.raw.ui_click, 1);
+        when_slide = soundPool.load(this, R.raw.slide, 1);
+        when_plus = soundPool.load(this, R.raw.plus, 1);
+
     }
 
     private void setListeners(){
@@ -171,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if(j < 5 && view_record[index][i] == view_record[index][j]){
+                soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
                 view_record[index][i] += view_record[index][j];
                 view_record[index][j] = 0;
                 j++;
@@ -196,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if(j < 5 && view_record[i][index] == view_record[j][index]){
+                soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
                 view_record[i][index] += view_record[j][index];
                 view_record[j][index] = 0;
                 j++;
@@ -221,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if(j > 0 && view_record[index][i] == view_record[index][j]){
+                soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
                 view_record[index][i] += view_record[index][j];
                 view_record[index][j] = 0;
                 j--;
@@ -246,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if(j > 0 && view_record[i][index] == view_record[j][index]){
+                soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
                 view_record[i][index] += view_record[j][index];
                 view_record[j][index] = 0;
                 j--;
@@ -262,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<4; i++){
             for(int j=1; j<4; j++){
                 if(view_record[index][j]==0 && view_record[index][j+1]!=0){
+                    soundPool.play(when_slide, 0.5F, 0.5F, 0, 0, 0.5F);//sound
                     int tmp = view_record[index][j];
                     view_record[index][j] = view_record[index][j+1];
                     view_record[index][j+1] = tmp;
@@ -275,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<4; i++){
             for(int j=4; j>1; j--){
                 if(view_record[index][j]==0 && view_record[index][j-1]!=0){
+                    soundPool.play(when_slide, 0.5F, 0.5F, 0, 0, 0.5F);//sound
                     int tmp = view_record[index][j];
                     view_record[index][j] = view_record[index][j-1];
                     view_record[index][j-1] = tmp;
@@ -288,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<4; i++){
             for(int j=1; j<4; j++){
                 if(view_record[j][index]==0 && view_record[j+1][index]!=0){
+                    soundPool.play(when_slide, 0.5F, 0.5F, 0, 0, 0.5F);//sound
                     int tmp = view_record[j][index];
                     view_record[j][index] = view_record[j+1][index];
                     view_record[j+1][index] = tmp;
@@ -301,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<4; i++){
             for(int j=4; j>1; j--){
                 if(view_record[j][index]==0 && view_record[j-1][index]!=0){
+                    soundPool.play(when_slide, 0.5F, 0.5F, 0, 0, 0.5F);//sound
                     int tmp = view_record[j][index];
                     view_record[j][index] = view_record[j-1][index];
                     view_record[j-1][index] = tmp;
