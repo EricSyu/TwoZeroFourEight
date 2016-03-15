@@ -1,8 +1,11 @@
 package homework2.group.twozerofoureight;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -36,7 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     private int [][]view_record = new int[5][5];
     private int GameOver;
-    private boolean random_flag,gameover_flag;
+    private boolean random_flag, gameover_flag;
+
+    //music
+    private MediaPlayer mp;
+    private boolean isStoped = true;
 
     //Sound
     private static final int SOUND_COUNT = 3;
@@ -55,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         setListeners();
         initValue();
+        playMusic();
     }
 
     private void initView(){
@@ -486,6 +494,7 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -506,6 +515,39 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //----------------------   Sound  ----------------------//
+    private void playMusic(){
+        if( mp == null || isStoped){
+            mp = create(MainActivity.this, R.raw.maple);
+            isStoped = false;
+        }
+        mp.setLooping(true);
+        mp.start();
+    }
+    private void stopMusic(){
+        if( mp == null || isStoped){
+            mp.stop();
+            isStoped = true;
+        }
+    }
+    //Build environment for playing music
+    public static MediaPlayer create(Context context, int resid){
+        AssetFileDescriptor afd;
+        afd = context.getResources().openRawResourceFd(resid);
+        if(afd == null)
+            return null;
+        try{
+            MediaPlayer mp = new MediaPlayer();
+            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
+            mp.prepare();
+            return mp;
+        }catch (Exception e){
+            Log.e("Play music error!", e.toString());
+            return null;
+        }
     }
 }
 
