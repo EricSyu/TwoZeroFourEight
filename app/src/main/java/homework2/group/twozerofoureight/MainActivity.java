@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         GameOverJudge();
                         showView();
-                        Log.i(TAG, "向左");
+                        Log.i(TAG, "LEFT");
                     }
                     else if (initX - finalX < -100) {  //right
                         for(int i=1; i<5; i++){
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         GameOverJudge();
                         showView();
-                        Log.i(TAG, "向右");
+                        Log.i(TAG, "RIGHT");
                     }
                     else if (initY - finalY > 100){    //up
                         for(int i=1; i<5; i++){
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         GameOverJudge();
                         showView();
-                        Log.i(TAG, "向上");
+                        Log.i(TAG, "UP");
                     }
                     else if (initY - finalY < -100){   //down
                         for(int i=1; i<5; i++){
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         GameOverJudge();
                         showView();
-                        Log.i(TAG, "向下");
+                        Log.i(TAG, "DOWN");
                     }
                     break;
             }
