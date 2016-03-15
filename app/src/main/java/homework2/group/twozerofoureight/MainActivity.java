@@ -453,10 +453,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         for(int i=1; i<4; i++){
-            if(view_record[i][4] == view_record[i+1][4]){
+            if(view_record[i][4] == view_record[i+1][4] || view_record[i][4] == 0){
                 gameover_flag = false;
             }
-            if(view_record[4][i] == view_record[4][i+1]){
+            if(view_record[4][i] == view_record[4][i+1] || view_record[4][i] == 0){
                 gameover_flag = false;
             }
             if(view_record[4][4] == 0){
