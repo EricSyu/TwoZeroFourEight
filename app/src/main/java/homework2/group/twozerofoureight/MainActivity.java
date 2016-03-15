@@ -546,66 +546,66 @@ public class MainActivity extends AppCompatActivity {
         }
         String pre_record12 = record.getString(PRE_record12,"");
         if(!"".equals(pre_record12)) {
-            view11.setText(pre_record12);
+            view12.setText(pre_record12);
         }
         String pre_record13 = record.getString(PRE_record13,"");
         if(!"".equals(pre_record13)) {
-            view11.setText(pre_record13);
+            view13.setText(pre_record13);
         }
         String pre_record14 = record.getString(PRE_record14,"");
         if(!"".equals(pre_record14)) {
-            view11.setText(pre_record14);
+            view14.setText(pre_record14);
         }
 
         String pre_record21 = record.getString(PRE_record21,"");
         if(!"".equals(pre_record21)) {
-            view11.setText(pre_record21);
+            view21.setText(pre_record21);
         }
         String pre_record22 = record.getString(PRE_record22,"");
         if(!"".equals(pre_record22)) {
-            view11.setText(pre_record22);
+            view22.setText(pre_record22);
         }
         String pre_record23 = record.getString(PRE_record23,"");
         if(!"".equals(pre_record23)) {
-            view11.setText(pre_record23);
+            view23.setText(pre_record23);
         }
         String pre_record24 = record.getString(PRE_record24,"");
         if(!"".equals(pre_record24)) {
-            view11.setText(pre_record24);
+            view24.setText(pre_record24);
         }
 
         String pre_record31 = record.getString(PRE_record31,"");
         if(!"".equals(pre_record31)) {
-            view11.setText(pre_record31);
+            view31.setText(pre_record31);
         }
         String pre_record32 = record.getString(PRE_record32,"");
         if(!"".equals(pre_record32)) {
-            view11.setText(pre_record32);
+            view32.setText(pre_record32);
         }
         String pre_record33 = record.getString(PRE_record33,"");
         if(!"".equals(pre_record33)) {
-            view11.setText(pre_record33);
+            view33.setText(pre_record33);
         }
         String pre_record34 = record.getString(PRE_record34,"");
         if(!"".equals(pre_record34)) {
-            view11.setText(pre_record34);
+            view34.setText(pre_record34);
         }
 
         String pre_record41 = record.getString(PRE_record41,"");
         if(!"".equals(pre_record41)) {
-            view11.setText(pre_record41);
+            view41.setText(pre_record41);
         }
         String pre_record42 = record.getString(PRE_record42,"");
         if(!"".equals(pre_record42)) {
-            view11.setText(pre_record42);
+            view42.setText(pre_record42);
         }
         String pre_record43 = record.getString(PRE_record43,"");
         if(!"".equals(pre_record43)) {
-            view11.setText(pre_record43);
+            view43.setText(pre_record43);
         }
         String pre_record44 = record.getString(PRE_record44,"");
         if(!"".equals(pre_record44)) {
-            view11.setText(pre_record44);
+            view44.setText(pre_record44);
         }
     }
 
