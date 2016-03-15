@@ -188,11 +188,14 @@ public class MainActivity extends AppCompatActivity {
 
             if(j < 5 && view_record[index][i] == view_record[index][j]){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
+
                 view_record[index][i] += view_record[index][j];
                 view_record[index][j] = 0;
                 j++;
                 i = j;
+
                 GameOver--;
+                random_flag = true;
             }
             else{
                 i++;
@@ -214,11 +217,14 @@ public class MainActivity extends AppCompatActivity {
 
             if(j < 5 && view_record[i][index] == view_record[j][index]){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
+
                 view_record[i][index] += view_record[j][index];
                 view_record[j][index] = 0;
                 j++;
                 i = j;
+
                 GameOver--;
+                random_flag = true;
             }
             else{
                 i++;
@@ -240,11 +246,14 @@ public class MainActivity extends AppCompatActivity {
 
             if(j > 0 && view_record[index][i] == view_record[index][j]){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
+
                 view_record[index][i] += view_record[index][j];
                 view_record[index][j] = 0;
                 j--;
                 i = j;
+
                 GameOver--;
+                random_flag = true;
             }
             else{
                 i--;
@@ -266,11 +275,14 @@ public class MainActivity extends AppCompatActivity {
 
             if(j > 0 && view_record[i][index] == view_record[j][index]){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
+
                 view_record[i][index] += view_record[j][index];
                 view_record[j][index] = 0;
                 j--;
                 i = j;
+
                 GameOver--;
+                random_flag = true;
             }
             else{
                 i--;
@@ -283,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
             for(int j=1; j<4; j++){
                 if(view_record[index][j]==0 && view_record[index][j+1]!=0){
                     soundPool.play(when_slide, 0.5F, 0.5F, 0, 0, 0.5F);//sound
+
                     int tmp = view_record[index][j];
                     view_record[index][j] = view_record[index][j+1];
                     view_record[index][j+1] = tmp;
@@ -297,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
             for(int j=4; j>1; j--){
                 if(view_record[index][j]==0 && view_record[index][j-1]!=0){
                     soundPool.play(when_slide, 0.5F, 0.5F, 0, 0, 0.5F);//sound
+
                     int tmp = view_record[index][j];
                     view_record[index][j] = view_record[index][j-1];
                     view_record[index][j-1] = tmp;
@@ -311,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
             for(int j=1; j<4; j++){
                 if(view_record[j][index]==0 && view_record[j+1][index]!=0){
                     soundPool.play(when_slide, 0.5F, 0.5F, 0, 0, 0.5F);//sound
+
                     int tmp = view_record[j][index];
                     view_record[j][index] = view_record[j+1][index];
                     view_record[j+1][index] = tmp;
@@ -325,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
             for(int j=4; j>1; j--){
                 if(view_record[j][index]==0 && view_record[j-1][index]!=0){
                     soundPool.play(when_slide, 0.5F, 0.5F, 0, 0, 0.5F);//sound
+
                     int tmp = view_record[j][index];
                     view_record[j][index] = view_record[j-1][index];
                     view_record[j-1][index] = tmp;
@@ -450,12 +466,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GameOverJudge(){
-        if(random_flag && GameOver<=14){
-            RandomView();
-            RandomView();
-            random_flag = false;
-        }
-        else if(random_flag && GameOver == 15){
+        if(random_flag && GameOver <= 15){
             RandomView();
             random_flag = false;
         } else if (gameover_flag && GameOver == 16){
