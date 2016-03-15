@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView view41, view42, view43, view44;
 
     private TextView Text_appname, Text_score, Text_bestscore;
-    private Button btn_newgame, btn_rank;
+    private Button btn_newgame, btn_rank, btn_star, btn_exchange;
 
     private LinearLayout TouchSet;
 
@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         btn_newgame = (Button)findViewById(R.id.btn_newgame);
         btn_rank = (Button)findViewById(R.id.btn_rank);
+        btn_star = (Button)findViewById(R.id.btn_star);
+        btn_exchange = (Button)findViewById(R.id.btn_exchange);
 
         TouchSet = (LinearLayout)findViewById(R.id.TouchLayout);
 
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
     private void setListeners(){
         TouchSet.setOnTouchListener(touch_event);
         btn_newgame.setOnClickListener(reset_game);
+        btn_star.setOnClickListener(set_star);
+        btn_exchange.setOnClickListener(exchange_view);
     }
 
     private void initValue(){
@@ -109,15 +113,15 @@ public class MainActivity extends AppCompatActivity {
                 view_record[i][j] = 0;
             }
         }
-        RandomView();
-        RandomView();
+        RandomView(2);
+        RandomView(2);
         showView();
     }
 
-    private void RandomView(){
+    private void RandomView(int setvalue){
         Random random = new Random();
         int num = random.nextInt(16)+1;
-        setRandomView(num);
+        setRandomView(num,setvalue);
     }
 
     private Button.OnClickListener reset_game = new Button.OnClickListener(){
@@ -125,6 +129,25 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             ResetDialog();
+        }
+    };
+
+    private Button.OnClickListener set_star = new Button.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Log.i(TAG, "SET STAR");
+            random_flag = true;
+            GameOverJudge(1);
+            showView();
+        }
+    };
+
+    private Button.OnClickListener exchange_view = new Button.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+
         }
     };
 
@@ -146,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchLeft(i);
                             SwapLeft(i);
                         }
-                        GameOverJudge();
+                        GameOverJudge(2);
                         showView();
                         Log.i(TAG, "LEFT");
                     }
@@ -155,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchRight(i);
                             SwapRight(i);
                         }
-                        GameOverJudge();
+                        GameOverJudge(2);
                         showView();
                         Log.i(TAG, "RIGHT");
                     }
@@ -164,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchUp(i);
                             SwapUp(i);
                         }
-                        GameOverJudge();
+                        GameOverJudge(2);
                         showView();
                         Log.i(TAG, "UP");
                     }
@@ -173,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchDown(i);
                             SwapDown(i);
                         }
-                        GameOverJudge();
+                        GameOverJudge(2);
                         showView();
                         Log.i(TAG, "DOWN");
                     }
@@ -195,10 +218,10 @@ public class MainActivity extends AppCompatActivity {
                 j++;
             }
 
-            if(j < 5 && view_record[index][i] == view_record[index][j]){
+            if(j < 5 && (view_record[index][i] == view_record[index][j] || view_record[index][j] == 1)){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
 
-                view_record[index][i] += view_record[index][j];
+                view_record[index][i] *= 2;
                 view_record[index][j] = 0;
                 j++;
                 i = j;
@@ -224,10 +247,10 @@ public class MainActivity extends AppCompatActivity {
                 j++;
             }
 
-            if(j < 5 && view_record[i][index] == view_record[j][index]){
+            if(j < 5 && (view_record[i][index] == view_record[j][index] || view_record[j][index] == 1)){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
 
-                view_record[i][index] += view_record[j][index];
+                view_record[i][index] *= 2;
                 view_record[j][index] = 0;
                 j++;
                 i = j;
@@ -253,10 +276,10 @@ public class MainActivity extends AppCompatActivity {
                 j--;
             }
 
-            if(j > 0 && view_record[index][i] == view_record[index][j]){
+            if(j > 0 && (view_record[index][i] == view_record[index][j] || view_record[index][j] == 1)){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
 
-                view_record[index][i] += view_record[index][j];
+                view_record[index][i] *= 2;
                 view_record[index][j] = 0;
                 j--;
                 i = j;
@@ -282,10 +305,10 @@ public class MainActivity extends AppCompatActivity {
                 j--;
             }
 
-            if(j > 0 && view_record[i][index] == view_record[j][index]){
+            if(j > 0 && (view_record[i][index] == view_record[j][index] || view_record[j][index] == 1)){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
 
-                view_record[i][index] += view_record[j][index];
+                view_record[i][index] *= 2;
                 view_record[j][index] = 0;
                 j--;
                 i = j;
@@ -381,69 +404,70 @@ public class MainActivity extends AppCompatActivity {
         view44.setText(String.valueOf(view_record[4][4]));
     }
 
-    private void setRandomView(int num) {
+    private void setRandomView(int num, int setvalue) {
+        Log.i(TAG, String.valueOf(num));
         switch (num){
             case 1:
-                setView(1,1);
+                setView(1,1,setvalue);
                 break;
             case 2:
-                setView(1,2);
+                setView(1,2,setvalue);
                 break;
             case 3:
-                setView(1,3);
+                setView(1,3,setvalue);
                 break;
             case 4:
-                setView(1,4);
+                setView(1,4,setvalue);
                 break;
 
             case 5:
-                setView(2,1);
+                setView(2,1,setvalue);
                 break;
             case 6:
-                setView(2,2);
+                setView(2,2,setvalue);
                 break;
             case 7:
-                setView(2,3);
+                setView(2,3,setvalue);
                 break;
             case 8:
-                setView(2,4);
+                setView(2,4,setvalue);
                 break;
 
             case 9:
-                setView(3,1);
+                setView(3,1,setvalue);
                 break;
             case 10:
-                setView(3,2);
+                setView(3,2,setvalue);
                 break;
             case 11:
-                setView(3,3);
+                setView(3,3,setvalue);
                 break;
             case 12:
-                setView(3,4);
+                setView(3,4,setvalue);
                 break;
 
             case 13:
-                setView(4,1);
+                setView(4,1,setvalue);
                 break;
             case 14:
-                setView(4,2);
+                setView(4,2,setvalue);
                 break;
             case 15:
-                setView(4,3);
+                setView(4,3,setvalue);
                 break;
             case 16:
-                setView(4,4);
+                setView(4,4,setvalue);
                 break;
         }
     }
 
-    private  void setView(int i, int j){
+    private  void setView(int i, int j, int setvalue){
         if(view_record[i][j] != 0){
-            RandomView();
+            RandomView(setvalue);
         }
         else{
             GameOver++;
-            view_record[i][j] = 2;
+            view_record[i][j] = setvalue;
             view11.setText(String.valueOf(view_record[i][j]));
             gameover_flag = true;
             Judgement();
@@ -456,27 +480,33 @@ public class MainActivity extends AppCompatActivity {
     private void Judgement(){
         for(int i=1; i<4; i++){
             for(int j=1; j<4; j++){
-                if(view_record[i][j] == view_record[i][j+1] || view_record[i][j] == view_record[i+1][j] || view_record[i][j] == 0){
+                if(view_record[i][j] == view_record[i][j+1] || view_record[i][j] == view_record[i+1][j]){
+                    gameover_flag = false;
+                }
+                if(view_record[i][j] == 0 || view_record[i][j] == 1){
                     gameover_flag = false;
                 }
             }
         }
         for(int i=1; i<4; i++){
-            if(view_record[i][4] == view_record[i+1][4] || view_record[i][4] == 0){
+            if(view_record[i][4] == view_record[i+1][4]){
                 gameover_flag = false;
             }
-            if(view_record[4][i] == view_record[4][i+1] || view_record[4][i] == 0){
+            if(view_record[4][i] == view_record[4][i+1]){
                 gameover_flag = false;
             }
-            if(view_record[4][4] == 0){
+            if(view_record[i][4] == 0 || view_record[4][i] == 0 || view_record[4][4] == 0){
+                gameover_flag = false;
+            }
+            if(view_record[i][4] == 1 || view_record[4][i] == 1 || view_record[4][4] == 1){
                 gameover_flag = false;
             }
         }
     }
 
-    private void GameOverJudge(){
+    private void GameOverJudge(int setvalue){
         if(random_flag && GameOver <= 15){
-            RandomView();
+            RandomView(setvalue);
             random_flag = false;
         } else if (gameover_flag && GameOver == 16){
             GameOverDialog();
@@ -536,4 +566,3 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-

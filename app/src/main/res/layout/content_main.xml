@@ -140,7 +140,20 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"></LinearLayout>
+            android:layout_height="50dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_star"
+                android:id="@+id/btn_star" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_exchange"
+                android:id="@+id/btn_exchange" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
