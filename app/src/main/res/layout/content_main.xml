@@ -153,16 +153,34 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_exchange"
                 android:id="@+id/btn_exchange" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView" />
+
+            <ImageButton
+                android:id="@+id/btn_music_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/music_on1" />
+
+            <ImageButton
+                android:id="@+id/btn_music_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/music_off1" />
+
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:id="@+id/TouchLayout"
             android:gravity="center"
-            android:layout_weight="0.61"
+            android:layout_weight="0.8"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_back">
 

@@ -3,6 +3,7 @@ package homework2.group.twozerofoureight;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -18,8 +19,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -32,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView view31, view32, view33, view34;
     private TextView view41, view42, view43, view44;
 
-    private TextView Text_appname, Text_score, Text_bestscore;
+    private TextView text_appname, text_score, text_bestscore;
     private Button btn_newgame, btn_rank, btn_star, btn_exchange;
+    private ImageButton btn_music_on, btn_music_off;
 
     private LinearLayout TouchSet;
 
@@ -41,7 +45,12 @@ public class MainActivity extends AppCompatActivity {
     private int GameOver;
     private boolean random_flag, gameover_flag;
 
-    //music
+    //Database
+    private static final String DBName = "Rank.db";
+    private static final int DBVersion = 1;
+    private CompDBHper dbHper;
+
+    //Music
     private MediaPlayer mp;
     private boolean isStoped = true;
 
@@ -65,6 +74,30 @@ public class MainActivity extends AppCompatActivity {
         playMusic();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(dbHper == null)//Database
+            dbHper = new CompDBHper(this, DBName, null, DBVersion);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        stopMusic();//Stop music
+        if(dbHper != null) { //Database Close dbHper
+            dbHper.close();
+            dbHper = null;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopMusic();//Stop music
+
+
+    }
     private void initView(){
         view11 = (TextView)findViewById(R.id.view11);
         view12 = (TextView)findViewById(R.id.view12);
@@ -86,14 +119,17 @@ public class MainActivity extends AppCompatActivity {
         view43 = (TextView)findViewById(R.id.view43);
         view44 = (TextView)findViewById(R.id.view44);
 
-        Text_appname = (TextView)findViewById(R.id.textView);
-        Text_score = (TextView)findViewById(R.id.textView_score);
-        Text_bestscore = (TextView)findViewById(R.id.textView_bestscore);
+        text_appname = (TextView)findViewById(R.id.textView);
+        text_score = (TextView)findViewById(R.id.textView_score);
+        text_bestscore = (TextView)findViewById(R.id.textView_bestscore);
 
         btn_newgame = (Button)findViewById(R.id.btn_newgame);
         btn_rank = (Button)findViewById(R.id.btn_rank);
         btn_star = (Button)findViewById(R.id.btn_star);
         btn_exchange = (Button)findViewById(R.id.btn_exchange);
+        btn_music_on = (ImageButton)findViewById(R.id.btn_music_on);
+        btn_music_off = (ImageButton) findViewById(R.id.btn_music_off);
+        btn_music_off.setVisibility(View.INVISIBLE);
 
         TouchSet = (LinearLayout)findViewById(R.id.TouchLayout);
 
@@ -108,8 +144,11 @@ public class MainActivity extends AppCompatActivity {
     private void setListeners(){
         TouchSet.setOnTouchListener(touch_event);
         btn_newgame.setOnClickListener(reset_game);
+        btn_rank.setOnClickListener(show_rank);
         btn_star.setOnClickListener(set_star);
         btn_exchange.setOnClickListener(exchange_view);
+        btn_music_on.setOnClickListener(music_on);
+        btn_music_off.setOnClickListener(music_off);
     }
 
     private void initValue(){
@@ -133,17 +172,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Button.OnClickListener reset_game = new Button.OnClickListener(){
-
         @Override
         public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
             ResetDialog();
         }
     };
 
+    private  Button.OnClickListener show_rank = new Button.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, RankActivity.class);
+            startActivity(intent);
+        }
+    };
     private Button.OnClickListener set_star = new Button.OnClickListener(){
-
         @Override
         public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
             Log.i(TAG, "SET STAR");
             random_flag = true;
             GameOverJudge(1);
@@ -155,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            //+++++++++++++++++++++ rching
 
         }
     };
@@ -218,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         int i = 1, j = 2;
         while(j < 5){
 
-            while(i < 5 &&view_record[index][i] == 0){
+            while(i < 5 && view_record[index][i] == 0){
                 i++;
             }
             j = i + 1;
@@ -469,7 +519,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private  void setView(int i, int j, int setvalue){
+    private void setView(int i, int j, int setvalue){
         if(view_record[i][j] != 0){
             RandomView(setvalue);
         }
@@ -528,7 +578,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
         dialog.show();
@@ -575,7 +624,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //----------------------   Sound  ----------------------//
+    //----------------------   Music  ----------------------//
     private void playMusic(){
         if( mp == null || isStoped){
             mp = create(MainActivity.this, R.raw.maple);
@@ -610,14 +659,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onPause(){
-        stopMusic();
-        super.onPause();
-    }
+    private Button.OnClickListener music_on = new Button.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            stopMusic();
+            btn_music_on.setVisibility(View.INVISIBLE);
+            btn_music_off.setVisibility(View.VISIBLE);
 
-    public void onStop() {
-        stopMusic();
-        super.onStop();
+        }
+    };
 
-    }
+    private Button.OnClickListener music_off = new Button.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            playMusic();
+            btn_music_off.setVisibility(View.INVISIBLE);
+            btn_music_on.setVisibility(View.VISIBLE);
+        }
+    };
+
+    //Database  add record
+    private Button.OnClickListener btnRecord = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String gamePlayer = "YKK";//待改
+            String gameScore = "100";//Integer.toString(recordScore); //待改 分數
+            String gameDate = "3/10";//待改  抓現在時間
+
+            long rowID = dbHper.insertRec(gamePlayer, gameScore, gameDate);
+            String msg = "";
+            if(rowID != -1){
+                msg = "Success!\n" + "There are " + dbHper.RecCount() + " record.";
+            }else{
+                msg = "Add record fail!";
+            }
+
+            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+        }
+    };
 }
