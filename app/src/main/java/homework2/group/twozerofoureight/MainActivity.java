@@ -216,11 +216,11 @@ public class MainActivity extends AppCompatActivity {
 
                 view_record[index][i] += view_record[index][j];
                 view_record[index][j] = 0;
+                score += view_record[index][i];
                 j++;
                 i = j;
 
-                scoreCalculate();
-                Text_score.setText(""+score);
+                Text_score.setText(String.valueOf(score));
 
                 GameOver--;
                 random_flag = true;
@@ -248,11 +248,11 @@ public class MainActivity extends AppCompatActivity {
 
                 view_record[i][index] += view_record[j][index];
                 view_record[j][index] = 0;
+                score += view_record[i][index];
                 j++;
                 i = j;
 
-                scoreCalculate();
-                Text_score.setText(""+score);
+                Text_score.setText(String.valueOf(score));
 
                 GameOver--;
                 random_flag = true;
@@ -280,11 +280,11 @@ public class MainActivity extends AppCompatActivity {
 
                 view_record[index][i] += view_record[index][j];
                 view_record[index][j] = 0;
+                score += view_record[index][i];
                 j--;
                 i = j;
 
-                scoreCalculate();
-                Text_score.setText(""+score);
+                Text_score.setText(String.valueOf(score));
 
                 GameOver--;
                 random_flag = true;
@@ -312,11 +312,11 @@ public class MainActivity extends AppCompatActivity {
 
                 view_record[i][index] += view_record[j][index];
                 view_record[j][index] = 0;
+                score += view_record[i][index];
                 j--;
                 i = j;
 
-                scoreCalculate();
-                Text_score.setText(""+score);
+                Text_score.setText(String.valueOf(score));
 
                 GameOver--;
                 random_flag = true;
@@ -524,88 +524,97 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void scoreCalculate(){
-
-        for (int i=1; i<5; i++){
-            for (int j=1; j<5; j++){
-                int math = (int)(Math.log(view_record[i][j])/Math.log(2)) -1;
-                score = score + math*view_record[i][j];
-            }
-        }
-    }
 
     private void restorePrefs(){
         SharedPreferences record = getSharedPreferences(pref,0);
-        String scored = record.getString(pre_score, " ");
+        String scored = record.getString(pre_score, "0");
         if(!"".equals(scored)){
             Text_score.setText(""+scored);
+            score = Integer.valueOf(scored);
         }
         String pre_record11 = record.getString(PRE_record11,"");
         if(!"".equals(pre_record11)) {
             view11.setText(pre_record11);
+            view_record[1][1] = Integer.valueOf(pre_record11);
         }
         String pre_record12 = record.getString(PRE_record12,"");
         if(!"".equals(pre_record12)) {
             view12.setText(pre_record12);
+            view_record[1][2] = Integer.valueOf(pre_record12);
         }
         String pre_record13 = record.getString(PRE_record13,"");
         if(!"".equals(pre_record13)) {
             view13.setText(pre_record13);
+            view_record[1][3] = Integer.valueOf(pre_record13);
         }
         String pre_record14 = record.getString(PRE_record14,"");
         if(!"".equals(pre_record14)) {
+            view_record[1][4] = Integer.valueOf(pre_record14);
             view14.setText(pre_record14);
+            view_record[1][4] = Integer.valueOf(pre_record14);
         }
 
         String pre_record21 = record.getString(PRE_record21,"");
         if(!"".equals(pre_record21)) {
             view21.setText(pre_record21);
+            view_record[2][1] = Integer.valueOf(pre_record21);
         }
         String pre_record22 = record.getString(PRE_record22,"");
         if(!"".equals(pre_record22)) {
             view22.setText(pre_record22);
+            view_record[2][2] = Integer.valueOf(pre_record22);
         }
         String pre_record23 = record.getString(PRE_record23,"");
         if(!"".equals(pre_record23)) {
             view23.setText(pre_record23);
+            view_record[2][3] = Integer.valueOf(pre_record23);
         }
         String pre_record24 = record.getString(PRE_record24,"");
         if(!"".equals(pre_record24)) {
             view24.setText(pre_record24);
+            view_record[2][4] = Integer.valueOf(pre_record24);
         }
 
         String pre_record31 = record.getString(PRE_record31,"");
         if(!"".equals(pre_record31)) {
             view31.setText(pre_record31);
+            view_record[3][1] = Integer.valueOf(pre_record31);
         }
         String pre_record32 = record.getString(PRE_record32,"");
         if(!"".equals(pre_record32)) {
             view32.setText(pre_record32);
+            view_record[3][2] = Integer.valueOf(pre_record32);
         }
         String pre_record33 = record.getString(PRE_record33,"");
         if(!"".equals(pre_record33)) {
             view33.setText(pre_record33);
+            view_record[3][3] = Integer.valueOf(pre_record33);
         }
         String pre_record34 = record.getString(PRE_record34,"");
         if(!"".equals(pre_record34)) {
             view34.setText(pre_record34);
+            view_record[3][4] = Integer.valueOf(pre_record34);
         }
 
         String pre_record41 = record.getString(PRE_record41,"");
         if(!"".equals(pre_record41)) {
             view41.setText(pre_record41);
+            view_record[4][1] = Integer.valueOf(pre_record41);
         }
         String pre_record42 = record.getString(PRE_record42,"");
         if(!"".equals(pre_record42)) {
             view42.setText(pre_record42);
+            view_record[4][2] = Integer.valueOf(pre_record42);
         }
         String pre_record43 = record.getString(PRE_record43,"");
         if(!"".equals(pre_record43)) {
             view43.setText(pre_record43);
+            view_record[4][3] = Integer.valueOf(pre_record43);
         }
         String pre_record44 = record.getString(PRE_record44,"");
         if(!"".equals(pre_record44)) {
             view44.setText(pre_record44);
+            view_record[4][4] = Integer.valueOf(pre_record44);
         }
     }
 
