@@ -18,6 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RankActivity"
+            android:exported="true"
+            android:label="@string/show_rank" >
+            <intent-filter>
+                <action android:name="bmi.action.report" /> <!-- ??? -->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
