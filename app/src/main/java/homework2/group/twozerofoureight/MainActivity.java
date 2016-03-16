@@ -9,11 +9,10 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
@@ -23,8 +22,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.HashSet;
+import android.widget.EditText;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int DBVersion = 1;
     private CompDBHper dbHper;
 
-    //Music
+    //exchange
+    private int ox, oy, nx, ny;
+
+    //music
     private MediaPlayer mp;
     private boolean isStoped = true;
 
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+        playMusic();
         if(dbHper == null)//Database
             dbHper = new CompDBHper(this, DBName, null, DBVersion);
     }
@@ -204,8 +206,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
-            //+++++++++++++++++++++ rching
-
+            Log.i(TAG,"exchange");
+            ExchangeDialog();
         }
     };
 
@@ -600,6 +602,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    private void ExchangeDialog(){
+
+        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+        final View v = inflater.inflate(R.layout.dialog_exchange, null);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(R.string.title_exchange);
+        dialog.setView(v);
+        final EditText old_x = (EditText)v.findViewById(R.id.old_x);
+        final EditText old_y = (EditText)v.findViewById(R.id.old_y);
+        final EditText new_x = (EditText)v.findViewById(R.id.new_x);
+        final EditText new_y = (EditText)v.findViewById(R.id.new_y);
+
+        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ox = Integer.valueOf(old_x.getText().toString());
+                oy = Integer.valueOf(old_y.getText().toString());
+                nx = Integer.valueOf(new_x.getText().toString());
+                ny = Integer.valueOf(new_y.getText().toString());
+                if(ox > 4 || oy > 4 || nx > 4 || ny > 4){
+                    ExchangeDialog();
+                    Toast.makeText(MainActivity.this, "請輸入1~4到之間", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Swap(ox, oy, nx, ny);
+                    showView();
+                }
+            }
+        });
+        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void Swap(int i, int j, int m, int n){
+        int tmp = view_record[i][j];
+        view_record[i][j] = view_record[m][n];
+        view_record[m][n] = tmp;
     }
 
     @Override
