@@ -35,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView view31, view32, view33, view34;
     private TextView view41, view42, view43, view44;
 
-    private TextView text_appname, text_score, text_bestscore;
+    private TextView text_appname, text_score, text_bestscore, show_score;
     private Button btn_newgame, btn_rank, btn_star, btn_exchange;
     private ImageButton btn_music_on, btn_music_off;
 
     private LinearLayout TouchSet;
 
     private int [][]view_record = new int[5][5];
+    private int score;
     private int GameOver;
     private boolean random_flag, gameover_flag;
 
@@ -88,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         initView();
         setListeners();
@@ -97,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         restorePrefs();
         playMusic();
     }
+
 
     @Override
     public void onResume(){
@@ -114,6 +114,30 @@ public class MainActivity extends AppCompatActivity {
             dbHper.close();
             dbHper = null;
         }
+
+
+        Log.v(TAG, "onPause");
+        SharedPreferences record = getSharedPreferences(pref, 0);
+        Editor editor = record.edit();
+        editor.putString(pre_score, text_score.getText().toString());
+        editor.putString(PRE_record11, view11.getText().toString());
+        editor.putString(PRE_record12, view12.getText().toString());
+        editor.putString(PRE_record13, view13.getText().toString());
+        editor.putString(PRE_record14, view14.getText().toString());
+        editor.putString(PRE_record21, view21.getText().toString());
+        editor.putString(PRE_record22, view22.getText().toString());
+        editor.putString(PRE_record23, view23.getText().toString());
+        editor.putString(PRE_record24, view24.getText().toString());
+        editor.putString(PRE_record31, view31.getText().toString());
+        editor.putString(PRE_record32, view32.getText().toString());
+        editor.putString(PRE_record33, view33.getText().toString());
+        editor.putString(PRE_record34, view34.getText().toString());
+        editor.putString(PRE_record41, view41.getText().toString());
+        editor.putString(PRE_record42, view42.getText().toString());
+        editor.putString(PRE_record43, view43.getText().toString());
+        editor.putString(PRE_record44, view44.getText().toString());
+        editor.commit();
+
     }
 
     @Override
@@ -146,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
         text_appname = (TextView)findViewById(R.id.textView);
         text_score = (TextView)findViewById(R.id.textView_score);
+        show_score = (TextView)findViewById(R.id.show_score);
         text_bestscore = (TextView)findViewById(R.id.textView_bestscore);
 
         btn_newgame = (Button)findViewById(R.id.btn_newgame);
@@ -200,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
     private Button.OnClickListener reset_game = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
+            score = 0;
             soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
             ResetDialog();
         }
@@ -263,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
                             SwapRight(i);
                         }
                         GameOverJudge(2);
+
                         showView();
                         Log.i(TAG, "RIGHT");
                     }
@@ -311,7 +338,8 @@ public class MainActivity extends AppCompatActivity {
                 j++;
                 i = j;
 
-                Text_score.setText(String.valueOf(score));
+
+                show_score.setText(""+score);
 
                 GameOver--;
                 random_flag = true;
@@ -343,7 +371,8 @@ public class MainActivity extends AppCompatActivity {
                 j++;
                 i = j;
 
-                Text_score.setText(String.valueOf(score));
+
+                show_score.setText(""+score);
 
                 GameOver--;
                 random_flag = true;
@@ -375,7 +404,8 @@ public class MainActivity extends AppCompatActivity {
                 j--;
                 i = j;
 
-                Text_score.setText(String.valueOf(score));
+
+                show_score.setText("" + score);
 
                 GameOver--;
                 random_flag = true;
@@ -404,10 +434,12 @@ public class MainActivity extends AppCompatActivity {
                 view_record[i][index] *= 2;
                 view_record[j][index] = 0;
                 score += view_record[i][index];
+
                 j--;
                 i = j;
 
-                Text_score.setText(String.valueOf(score));
+
+                show_score.setText(""+score);
 
                 GameOver--;
                 random_flag = true;
@@ -479,25 +511,106 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showView(){
-        view11.setText(String.valueOf(view_record[1][1]));
-        view12.setText(String.valueOf(view_record[1][2]));
-        view13.setText(String.valueOf(view_record[1][3]));
-        view14.setText(String.valueOf(view_record[1][4]));
 
-        view21.setText(String.valueOf(view_record[2][1]));
-        view22.setText(String.valueOf(view_record[2][2]));
-        view23.setText(String.valueOf(view_record[2][3]));
-        view24.setText(String.valueOf(view_record[2][4]));
+        if(view_record[1][1]!=0){
 
-        view31.setText(String.valueOf(view_record[3][1]));
-        view32.setText(String.valueOf(view_record[3][2]));
-        view33.setText(String.valueOf(view_record[3][3]));
-        view34.setText(String.valueOf(view_record[3][4]));
+            view11.setText(String.valueOf(view_record[1][1]));
+        }else{
+            view11.setText("");
+        }
+        if (view_record[1][2]!=0){
 
-        view41.setText(String.valueOf(view_record[4][1]));
-        view42.setText(String.valueOf(view_record[4][2]));
-        view43.setText(String.valueOf(view_record[4][3]));
-        view44.setText(String.valueOf(view_record[4][4]));
+            view12.setText(String.valueOf(view_record[1][2]));
+        }else{
+            view12.setText("");
+        }
+        if(view_record[1][3]!=0){
+
+            view13.setText(String.valueOf(view_record[1][3]));
+        }else{
+            view13.setText("");
+        }
+        if(view_record[1][4]!=0){
+
+            view14.setText(String.valueOf(view_record[1][4]));
+        }else{
+            view14.setText("");
+        }
+
+        if(view_record[2][1]!=0){
+
+            view21.setText(String.valueOf(view_record[2][1]));
+        }else{
+            view21.setText("");
+        }
+        if (view_record[2][2]!=0){
+
+            view22.setText(String.valueOf(view_record[2][2]));
+        }else{
+            view22.setText("");
+        }
+        if(view_record[2][3]!=0){
+
+            view23.setText(String.valueOf(view_record[2][3]));
+        }else{
+            view23.setText("");
+        }
+        if(view_record[2][4]!=0){
+
+            view24.setText(String.valueOf(view_record[2][4]));
+        }else{
+            view24.setText("");
+        }
+
+        if (view_record[3][1]!=0){
+
+            view31.setText(String.valueOf(view_record[3][1]));
+        }else{
+            view31.setText("");
+        }
+        if(view_record[3][2]!=0){
+
+            view32.setText(String.valueOf(view_record[3][2]));
+        }else{
+            view32.setText("");
+        }
+        if(view_record[3][3]!=0){
+
+            view33.setText(String.valueOf(view_record[3][3]));
+        }else{
+            view33.setText("");
+        }
+        if (view_record[3][4]!=0) {
+
+            view34.setText(String.valueOf(view_record[3][4]));
+        }else{
+            view34.setText("");
+        }
+
+        if(view_record[4][1]!=0){
+
+            view41.setText(String.valueOf(view_record[4][1]));
+        }else{
+            view41.setText("");
+        }
+        if (view_record[4][2]!=0){
+
+            view42.setText(String.valueOf(view_record[4][2]));
+        }else{
+            view42.setText("");
+        }
+        if(view_record[4][3]!=0){
+
+            view43.setText(String.valueOf(view_record[4][3]));
+        }else{
+            view43.setText("");
+        }
+        if (view_record[4][4]!=0){
+
+            view44.setText(String.valueOf(view_record[4][4]));
+        }else{
+            view44.setText("");
+        }
     }
 
     private void setRandomView(int num, int setvalue) {
@@ -640,13 +753,12 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-ls
 
     private void restorePrefs(){
         SharedPreferences record = getSharedPreferences(pref,0);
         String scored = record.getString(pre_score, "0");
         if(!"".equals(scored)){
-            Text_score.setText(""+scored);
+            show_score.setText(""+scored);
             score = Integer.valueOf(scored);
         }
         String pre_record11 = record.getString(PRE_record11,"");
@@ -735,29 +847,6 @@ ls
         }
     }
 
-    public void onPause(){
-        super.onPause();
-        Log.v(TAG, "onPause");
-        SharedPreferences record = getSharedPreferences(pref,0);
-        Editor editor= record.edit();
-        editor.putString(pre_score,Text_score.getText().toString());
-        editor.putString(PRE_record11, view11.getText().toString());
-        editor.putString(PRE_record12,view12.getText().toString());
-        editor.putString(PRE_record13,view13.getText().toString());
-        editor.putString(PRE_record14,view14.getText().toString());
-        editor.putString(PRE_record21,view21.getText().toString());
-        editor.putString(PRE_record22,view22.getText().toString());
-        editor.putString(PRE_record23,view23.getText().toString());
-        editor.putString(PRE_record24,view24.getText().toString());
-        editor.putString(PRE_record31,view31.getText().toString());
-        editor.putString(PRE_record32,view32.getText().toString());
-        editor.putString(PRE_record33,view33.getText().toString());
-        editor.putString(PRE_record34,view34.getText().toString());
-        editor.putString(PRE_record41,view41.getText().toString());
-        editor.putString(PRE_record42,view42.getText().toString());
-        editor.putString(PRE_record43,view43.getText().toString());
-        editor.putString(PRE_record44,view44.getText().toString());
-        editor.commit();
 
     private void ExchangeDialog(){
 
@@ -901,4 +990,7 @@ ls
             Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
         }
     };
+
+
+
 }
