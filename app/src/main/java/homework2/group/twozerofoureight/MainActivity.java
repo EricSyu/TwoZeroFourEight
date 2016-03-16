@@ -1,24 +1,28 @@
 package homework2.group.twozerofoureight;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.HashSet;
+import android.widget.Toast;
+import android.widget.EditText;
 import java.util.Random;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -31,15 +35,27 @@ public class MainActivity extends AppCompatActivity {
     private TextView view31, view32, view33, view34;
     private TextView view41, view42, view43, view44;
 
-    private TextView Text_appname, Text_score, Text_bestscore;
-    private int score,bestscore;
-    private Button btn_newgame, btn_rank;
+    private TextView text_appname, text_score, text_bestscore;
+    private Button btn_newgame, btn_rank, btn_star, btn_exchange;
+    private ImageButton btn_music_on, btn_music_off;
 
     private LinearLayout TouchSet;
 
     private int [][]view_record = new int[5][5];
     private int GameOver;
-    private boolean random_flag,gameover_flag;
+    private boolean random_flag, gameover_flag;
+
+    //Database
+    private static final String DBName = "Rank.db";
+    private static final int DBVersion = 1;
+    private CompDBHper dbHper;
+
+    //exchange
+    private int ox, oy, nx, ny;
+
+    //music
+    private MediaPlayer mp;
+    private boolean isStoped = true;
 
     //Sound
     private static final int SOUND_COUNT = 3;
@@ -79,8 +95,34 @@ public class MainActivity extends AppCompatActivity {
         setListeners();
         initValue();
         restorePrefs();
+        playMusic();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        playMusic();
+        if(dbHper == null)//Database
+            dbHper = new CompDBHper(this, DBName, null, DBVersion);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        stopMusic();//Stop music
+        if(dbHper != null) { //Database Close dbHper
+            dbHper.close();
+            dbHper = null;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopMusic();//Stop music
+
+
+    }
     private void initView(){
         view11 = (TextView)findViewById(R.id.view11);
         view12 = (TextView)findViewById(R.id.view12);
@@ -102,12 +144,17 @@ public class MainActivity extends AppCompatActivity {
         view43 = (TextView)findViewById(R.id.view43);
         view44 = (TextView)findViewById(R.id.view44);
 
-        Text_appname = (TextView)findViewById(R.id.textView);
-        Text_score = (TextView)findViewById(R.id.textView_score);
-        Text_bestscore = (TextView)findViewById(R.id.textView_bestscore);
+        text_appname = (TextView)findViewById(R.id.textView);
+        text_score = (TextView)findViewById(R.id.textView_score);
+        text_bestscore = (TextView)findViewById(R.id.textView_bestscore);
 
         btn_newgame = (Button)findViewById(R.id.btn_newgame);
         btn_rank = (Button)findViewById(R.id.btn_rank);
+        btn_star = (Button)findViewById(R.id.btn_star);
+        btn_exchange = (Button)findViewById(R.id.btn_exchange);
+        btn_music_on = (ImageButton)findViewById(R.id.btn_music_on);
+        btn_music_off = (ImageButton) findViewById(R.id.btn_music_off);
+        btn_music_off.setVisibility(View.INVISIBLE);
 
         TouchSet = (LinearLayout)findViewById(R.id.TouchLayout);
 
@@ -121,6 +168,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setListeners(){
         TouchSet.setOnTouchListener(touch_event);
+        btn_newgame.setOnClickListener(reset_game);
+        btn_rank.setOnClickListener(show_rank);
+        btn_star.setOnClickListener(set_star);
+        btn_exchange.setOnClickListener(exchange_view);
+        btn_music_on.setOnClickListener(music_on);
+        btn_music_off.setOnClickListener(music_off);
     }
 
     private void initValue(){
@@ -133,16 +186,54 @@ public class MainActivity extends AppCompatActivity {
                 view_record[i][j] = 0;
             }
         }
-        RandomView();
-        RandomView();
+        RandomView(2);
+        RandomView(2);
         showView();
     }
 
-    private void RandomView(){
+    private void RandomView(int setvalue){
         Random random = new Random();
         int num = random.nextInt(16)+1;
-        setRandomView(num);
+        setRandomView(num,setvalue);
     }
+
+    private Button.OnClickListener reset_game = new Button.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            ResetDialog();
+        }
+    };
+
+    private  Button.OnClickListener show_rank = new Button.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, RankActivity.class);
+            startActivity(intent);
+        }
+    };
+    private Button.OnClickListener set_star = new Button.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            Log.i(TAG, "SET STAR");
+            random_flag = true;
+            GameOverJudge(1);
+            showView();
+        }
+    };
+
+    private Button.OnClickListener exchange_view = new Button.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            Log.i(TAG,"exchange");
+            ExchangeDialog();
+        }
+    };
 
     private LinearLayout.OnTouchListener touch_event = new LinearLayout.OnTouchListener(){
         float initX, initY;
@@ -162,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchLeft(i);
                             SwapLeft(i);
                         }
-                        GameOverJudge();
+                        GameOverJudge(2);
                         showView();
                         Log.i(TAG, "LEFT");
                     }
@@ -171,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchRight(i);
                             SwapRight(i);
                         }
-                        GameOverJudge();
+                        GameOverJudge(2);
                         showView();
                         Log.i(TAG, "RIGHT");
                     }
@@ -180,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchUp(i);
                             SwapUp(i);
                         }
-                        GameOverJudge();
+                        GameOverJudge(2);
                         showView();
                         Log.i(TAG, "UP");
                     }
@@ -189,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                             TouchDown(i);
                             SwapDown(i);
                         }
-                        GameOverJudge();
+                        GameOverJudge(2);
                         showView();
                         Log.i(TAG, "DOWN");
                     }
@@ -203,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
         int i = 1, j = 2;
         while(j < 5){
 
-            while(i < 5 &&view_record[index][i] == 0){
+            while(i < 5 && view_record[index][i] == 0){
                 i++;
             }
             j = i + 1;
@@ -211,10 +302,10 @@ public class MainActivity extends AppCompatActivity {
                 j++;
             }
 
-            if(j < 5 && view_record[index][i] == view_record[index][j]){
+            if(j < 5 && (view_record[index][i] == view_record[index][j] || view_record[index][j] == 1)){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
 
-                view_record[index][i] += view_record[index][j];
+                view_record[index][i] *= 2;
                 view_record[index][j] = 0;
                 score += view_record[index][i];
                 j++;
@@ -243,10 +334,10 @@ public class MainActivity extends AppCompatActivity {
                 j++;
             }
 
-            if(j < 5 && view_record[i][index] == view_record[j][index]){
+            if(j < 5 && (view_record[i][index] == view_record[j][index] || view_record[j][index] == 1)){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
 
-                view_record[i][index] += view_record[j][index];
+                view_record[i][index] *= 2;
                 view_record[j][index] = 0;
                 score += view_record[i][index];
                 j++;
@@ -275,10 +366,10 @@ public class MainActivity extends AppCompatActivity {
                 j--;
             }
 
-            if(j > 0 && view_record[index][i] == view_record[index][j]){
+            if(j > 0 && (view_record[index][i] == view_record[index][j] || view_record[index][j] == 1)){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
 
-                view_record[index][i] += view_record[index][j];
+                view_record[index][i] *= 2;
                 view_record[index][j] = 0;
                 score += view_record[index][i];
                 j--;
@@ -307,10 +398,10 @@ public class MainActivity extends AppCompatActivity {
                 j--;
             }
 
-            if(j > 0 && view_record[i][index] == view_record[j][index]){
+            if(j > 0 && (view_record[i][index] == view_record[j][index] || view_record[j][index] == 1)){
                 soundPool.play(when_plus, 1, 1, 0, 0, 1);//sound
 
-                view_record[i][index] += view_record[j][index];
+                view_record[i][index] *= 2;
                 view_record[j][index] = 0;
                 score += view_record[i][index];
                 j--;
@@ -409,69 +500,70 @@ public class MainActivity extends AppCompatActivity {
         view44.setText(String.valueOf(view_record[4][4]));
     }
 
-    private void setRandomView(int num) {
+    private void setRandomView(int num, int setvalue) {
+        Log.i(TAG, String.valueOf(num));
         switch (num){
             case 1:
-                setView(1,1);
+                setView(1,1,setvalue);
                 break;
             case 2:
-                setView(1,2);
+                setView(1,2,setvalue);
                 break;
             case 3:
-                setView(1,3);
+                setView(1,3,setvalue);
                 break;
             case 4:
-                setView(1,4);
+                setView(1,4,setvalue);
                 break;
 
             case 5:
-                setView(2,1);
+                setView(2,1,setvalue);
                 break;
             case 6:
-                setView(2,2);
+                setView(2,2,setvalue);
                 break;
             case 7:
-                setView(2,3);
+                setView(2,3,setvalue);
                 break;
             case 8:
-                setView(2,4);
+                setView(2,4,setvalue);
                 break;
 
             case 9:
-                setView(3,1);
+                setView(3,1,setvalue);
                 break;
             case 10:
-                setView(3,2);
+                setView(3,2,setvalue);
                 break;
             case 11:
-                setView(3,3);
+                setView(3,3,setvalue);
                 break;
             case 12:
-                setView(3,4);
+                setView(3,4,setvalue);
                 break;
 
             case 13:
-                setView(4,1);
+                setView(4,1,setvalue);
                 break;
             case 14:
-                setView(4,2);
+                setView(4,2,setvalue);
                 break;
             case 15:
-                setView(4,3);
+                setView(4,3,setvalue);
                 break;
             case 16:
-                setView(4,4);
+                setView(4,4,setvalue);
                 break;
         }
     }
 
-    private  void setView(int i, int j){
+    private void setView(int i, int j, int setvalue){
         if(view_record[i][j] != 0){
-            RandomView();
+            RandomView(setvalue);
         }
         else{
             GameOver++;
-            view_record[i][j] = 2;
+            view_record[i][j] = setvalue;
             view11.setText(String.valueOf(view_record[i][j]));
             gameover_flag = true;
             Judgement();
@@ -484,27 +576,33 @@ public class MainActivity extends AppCompatActivity {
     private void Judgement(){
         for(int i=1; i<4; i++){
             for(int j=1; j<4; j++){
-                if(view_record[i][j] == view_record[i][j+1] || view_record[i][j] == view_record[i+1][j] || view_record[i][j] == 0){
+                if(view_record[i][j] == view_record[i][j+1] || view_record[i][j] == view_record[i+1][j]){
+                    gameover_flag = false;
+                }
+                if(view_record[i][j] == 0 || view_record[i][j] == 1){
                     gameover_flag = false;
                 }
             }
         }
         for(int i=1; i<4; i++){
-            if(view_record[i][4] == view_record[i+1][4] || view_record[i][4] == 0){
+            if(view_record[i][4] == view_record[i+1][4]){
                 gameover_flag = false;
             }
-            if(view_record[4][i] == view_record[4][i+1] || view_record[4][i] == 0){
+            if(view_record[4][i] == view_record[4][i+1]){
                 gameover_flag = false;
             }
-            if(view_record[4][4] == 0){
+            if(view_record[i][4] == 0 || view_record[4][i] == 0 || view_record[4][4] == 0){
+                gameover_flag = false;
+            }
+            if(view_record[i][4] == 1 || view_record[4][i] == 1 || view_record[4][4] == 1){
                 gameover_flag = false;
             }
         }
     }
 
-    private void GameOverJudge(){
+    private void GameOverJudge(int setvalue){
         if(random_flag && GameOver <= 15){
-            RandomView();
+            RandomView(setvalue);
             random_flag = false;
         } else if (gameover_flag && GameOver == 16){
             GameOverDialog();
@@ -514,8 +612,26 @@ public class MainActivity extends AppCompatActivity {
     private void GameOverDialog(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setTitle(R.string.dia_gameover);
-        dialog.setMessage(getString(R.string.dia_msg));
+        dialog.setMessage(getString(R.string.dia_gameover_msg));
         dialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        dialog.show();
+    }
+
+    private void ResetDialog(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(R.string.dia_reset);
+        dialog.setMessage(getString(R.string.dia_reset_msg));
+        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                initValue();
+            }
+        });
+        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -524,6 +640,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+ls
 
     private void restorePrefs(){
         SharedPreferences record = getSharedPreferences(pref,0);
@@ -641,6 +758,50 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(PRE_record43,view43.getText().toString());
         editor.putString(PRE_record44,view44.getText().toString());
         editor.commit();
+
+    private void ExchangeDialog(){
+
+        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+        final View v = inflater.inflate(R.layout.dialog_exchange, null);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(R.string.title_exchange);
+        dialog.setView(v);
+        final EditText old_x = (EditText)v.findViewById(R.id.old_x);
+        final EditText old_y = (EditText)v.findViewById(R.id.old_y);
+        final EditText new_x = (EditText)v.findViewById(R.id.new_x);
+        final EditText new_y = (EditText)v.findViewById(R.id.new_y);
+
+        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ox = Integer.valueOf(old_x.getText().toString());
+                oy = Integer.valueOf(old_y.getText().toString());
+                nx = Integer.valueOf(new_x.getText().toString());
+                ny = Integer.valueOf(new_y.getText().toString());
+                if(ox > 4 || oy > 4 || nx > 4 || ny > 4){
+                    ExchangeDialog();
+                    Toast.makeText(MainActivity.this, "請輸入1~4到之間", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Swap(ox, oy, nx, ny);
+                    showView();
+                }
+            }
+        });
+        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void Swap(int i, int j, int m, int n){
+        int tmp = view_record[i][j];
+        view_record[i][j] = view_record[m][n];
+        view_record[m][n] = tmp;
     }
 
     @Override
@@ -664,5 +825,80 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
 
+    //----------------------   Music  ----------------------//
+    private void playMusic(){
+        if( mp == null || isStoped){
+            mp = create(MainActivity.this, R.raw.maple);
+            isStoped = false;
+        }
+        mp.setLooping(true);
+        mp.start();
+    }
+    private void stopMusic(){
+        if( mp == null || isStoped)
+            return;
+
+        mp.stop();
+        isStoped = true;
+
+    }
+    //Build environment for playing music
+    public static MediaPlayer create(Context context, int resid){
+        AssetFileDescriptor afd;
+        afd = context.getResources().openRawResourceFd(resid);
+        if(afd == null)
+            return null;
+        try{
+            MediaPlayer mp = new MediaPlayer();
+            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
+            mp.prepare();
+            return mp;
+        }catch (Exception e){
+            Log.e("Play music error!", e.toString());
+            return null;
+        }
+    }
+
+    private Button.OnClickListener music_on = new Button.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            stopMusic();
+            btn_music_on.setVisibility(View.INVISIBLE);
+            btn_music_off.setVisibility(View.VISIBLE);
+
+        }
+    };
+
+    private Button.OnClickListener music_off = new Button.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            playMusic();
+            btn_music_off.setVisibility(View.INVISIBLE);
+            btn_music_on.setVisibility(View.VISIBLE);
+        }
+    };
+
+    //Database  add record
+    private Button.OnClickListener btnRecord = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String gamePlayer = "YKK";//待改
+            String gameScore = "100";//Integer.toString(recordScore); //待改 分數
+            String gameDate = "3/10";//待改  抓現在時間
+
+            long rowID = dbHper.insertRec(gamePlayer, gameScore, gameDate);
+            String msg = "";
+            if(rowID != -1){
+                msg = "Success!\n" + "There are " + dbHper.RecCount() + " record.";
+            }else{
+                msg = "Add record fail!";
+            }
+
+            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+        }
+    };
+}
