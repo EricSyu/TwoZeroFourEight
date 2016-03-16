@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">TwoZeroFourEight</string>
     <string name="action_settings">Settings</string>
+
+    <string name="dia_gameover">GameOver</string>
+    <string name="dia_msg">遊戲結束</string>
+
+    <string name="title_score">SCORE</string>
+    <string name="title_best">BEST</string>
+    <string name="title_newgame">NEWGAME</string>
+    <string name="title_rank">RANK</string>
 </resources>

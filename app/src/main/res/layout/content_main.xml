@@ -17,58 +17,124 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
         android:weightSum="1">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_gravity="center_horizontal">
+            android:layout_height="90dp"
+            android:gravity="center_vertical|center_horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="2048"
-                android:id="@+id/textView"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/textView_score"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:layout_weight="1"
-                android:id="@+id/textView_bestscore" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.04">
-
-            <Button
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NewGame"
-                android:id="@+id/btn_newgame" />
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp">
 
-            <Button
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="2048"
+                    android:id="@+id/textView"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:background="@drawable/btn_2048"
+                    android:textColor="#FFFFFF" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rank"
-                android:id="@+id/btn_rank" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/title_score"
+                    android:id="@+id/textView_score"
+                    android:background="@drawable/btn_score_up"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="3dp"
+                    android:textSize="12sp"
+                    android:textColor="#FAEBD7"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="20000"
+                    android:id="@+id/show_score"
+                    android:background="@drawable/btn_score_down"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="5dp"
+                    android:textSize="15sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_newgame"
+                    android:id="@+id/btn_newgame"
+                    android:background="@drawable/btn_new_rank"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/title_best"
+                    android:id="@+id/textView_bestscore"
+                    android:background="@drawable/btn_score_up"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="3dp"
+                    android:textSize="12sp"
+                    android:textColor="#FAEBD7"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="20000"
+                    android:id="@+id/show_best"
+                    android:background="@drawable/btn_score_down"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="5dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_rank"
+                    android:id="@+id/btn_rank"
+                    android:background="@drawable/btn_new_rank"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="5dp" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -76,13 +142,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.78"
-            android:id="@+id/TouchLayout">
+            android:id="@+id/TouchLayout"
+            android:gravity="center"
+            android:layout_weight="0.61"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_back">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1">
 
@@ -91,34 +160,66 @@
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view11"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view12"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view13"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view14"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1">
 
@@ -127,34 +228,61 @@
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view21"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textIsSelectable="false"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view22"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_view"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view23"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_view"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view24"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1">
 
@@ -163,34 +291,60 @@
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view31"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view32"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_view"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view33"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_view"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view34"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1">
 
@@ -199,28 +353,56 @@
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view41"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view42"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view43"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/view44"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
             </LinearLayout>
         </LinearLayout>
 
