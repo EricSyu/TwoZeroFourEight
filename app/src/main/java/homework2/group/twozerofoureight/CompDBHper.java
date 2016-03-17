@@ -16,7 +16,7 @@ public class CompDBHper extends SQLiteOpenHelper {
     private static final String crTBsql =
             "CREATE TABLE " + TBName + " (" +
                     " gamePlayer VARCHAR(10), " +
-                    " gameScore VARCHAR(100) NOT NULL, " +
+                    " gameScore INTEGER NOT NULL, " +
                     " gameDate VARCHAR(10) NOT NULL); " ;
 
     public CompDBHper(Context context, String DBName, SQLiteDatabase.CursorFactory factory, int DBversion ){
@@ -35,7 +35,7 @@ public class CompDBHper extends SQLiteOpenHelper {
     }
 
     //Add
-    public long insertRec(String gamePlayer, String gameScore, String gameTime){
+    public long insertRec(String gamePlayer, int gameScore, String gameTime){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues rec = new ContentValues();
         rec.put("gamePlayer", gamePlayer);
@@ -56,7 +56,7 @@ public class CompDBHper extends SQLiteOpenHelper {
 
     public ArrayList<String> getRecSet(){
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT * FROM " + TBName + " ORDER BY gameScore DESC";//Order by score
+        String sql = "SELECT * FROM " + TBName + " ORDER BY gameScore DESC;";
         Cursor recSet = db.rawQuery(sql, null);
         ArrayList<String> recAry = new ArrayList<String>();
         int columnCount = recSet.getColumnCount();

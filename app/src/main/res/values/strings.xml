@@ -4,7 +4,7 @@
 
     <!--  Game  -->
     <string name="dia_gameover">GameOver</string>
-    <string name="dia_gameover_msg">遊戲結束</string>
+    <string name="dia_gameover_msg">您獲得了</string>
     <string name="dia_reset">Reset</string>
     <string name="dia_reset_msg">是否要重新開始遊戲</string>
     <string name="dia_exchange">交換方塊</string>

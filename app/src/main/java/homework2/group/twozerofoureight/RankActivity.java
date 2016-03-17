@@ -22,11 +22,7 @@ public class RankActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
-
         initViews();
-        initDB();
-        showRec();
-
     }
 
     private TextView showScore1;
@@ -66,13 +62,6 @@ public class RankActivity extends AppCompatActivity {
         showDate4 = (TextView) findViewById(R.id.show_date4);
         showDate5 = (TextView) findViewById(R.id.show_date5);
 
-    }
-
-    private void initDB(){
-        if(dbHper==null)
-            dbHper = new CompDBHper(this, DBName, null, DBversion);
-        //dbHper.creatTB();
-        recSet = dbHper.getRecSet();
     }
 
     @Override
@@ -148,6 +137,4 @@ public class RankActivity extends AppCompatActivity {
             showDate5.setText("");
         }
     }
-
-
 }

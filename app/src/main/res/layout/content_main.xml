@@ -167,6 +167,12 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/music_off1" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/test" />
+
         </LinearLayout>
 
         <LinearLayout
