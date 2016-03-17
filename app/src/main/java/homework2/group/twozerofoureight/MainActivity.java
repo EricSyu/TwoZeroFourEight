@@ -984,23 +984,6 @@ public class MainActivity extends AppCompatActivity {
     private Button.OnClickListener bttest = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            SimpleDateFormat now_month = new SimpleDateFormat("MM");
-            SimpleDateFormat now_date = new SimpleDateFormat("dd");
-            String date= now_month.format(new java.util.Date()) + "/" + now_date.format(new java.util.Date());
-
-            String gamePlayer = "YKK";//待改
-            int gameScore = 100;//Integer.toString(recordScore); //待改 分數
-            String gameDate = date ;
-
-            long rowID = dbHper.insertRec(gamePlayer, gameScore, gameDate);
-            String msg = "";
-            if(rowID != -1){
-                msg = "Success!\n" + "There are " + dbHper.RecCount() + " record.";
-            }else{
-                msg = "Add record fail!";
-            }
-
-            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             GameOverDialog();
         }
     };
