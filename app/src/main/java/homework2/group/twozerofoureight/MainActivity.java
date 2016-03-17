@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout TouchSet;
 
     private int [][]view_record = new int[5][5];
-    private int score, min_score, max_score;
+    private int score, min_score;
     private int GameOver;
     private boolean random_flag, gameover_flag;
 
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         setListeners();
         initValue();
-        //restorePrefs();
+        restorePrefs();
         playMusic();
     }
 
@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
             else{
                 rank_last = recSet.get(4).split("#");
             }
-            max_score = Integer.valueOf(rank_1[1]);
             min_score = Integer.valueOf(rank_last[1]);
             show_bestscore.setText(rank_1[1]);
         }
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v(TAG, "onPause");
         SharedPreferences record = getSharedPreferences(pref, 0);
         Editor editor = record.edit();
-        editor.putString(pre_score, text_score.getText().toString());
+        editor.putString(pre_score, show_score.getText().toString());
         editor.putString(PRE_record11, view11.getText().toString());
         editor.putString(PRE_record12, view12.getText().toString());
         editor.putString(PRE_record13, view13.getText().toString());
@@ -862,6 +861,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void restorePrefs(){
         SharedPreferences record = getSharedPreferences(pref,0);
+
         String scored = record.getString(pre_score, "0");
         if(!"".equals(scored)){
             show_score.setText(""+scored);
