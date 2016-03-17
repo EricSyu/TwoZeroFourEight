@@ -87,8 +87,6 @@ public class RankActivity extends AppCompatActivity {
     private void showRec(){
         if(recSet.size() != 0){
             for(int i=0; i<recSet.size(); i++) {
-                String stHead = "共" + recSet.size() + "筆";//------
-
                 String[] fld = recSet.get(i).split("#");
                 switch (i) {
                     case 0:
@@ -117,7 +115,6 @@ public class RankActivity extends AppCompatActivity {
                         showDate5.setText(fld[2]);
                         break;
                 }
-                Toast.makeText(this, stHead, Toast.LENGTH_SHORT).show();//----
             }
         }else {
             showScore1.setText("");

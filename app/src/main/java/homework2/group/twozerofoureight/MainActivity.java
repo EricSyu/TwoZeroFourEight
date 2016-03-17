@@ -782,14 +782,7 @@ public class MainActivity extends AppCompatActivity {
                 String date= now_month.format(new java.util.Date()) + "/" + now_date.format(new java.util.Date());
 
                 long rowID = dbHper.insertRec(gamePlayer, score, date);
-                String msg = "";
-                if(rowID != -1){
-                    msg = "Success!\n" + "There are " + dbHper.RecCount() + " record.";
-                }else{
-                    msg = "Add record fail!";
-                }
 
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
         dialog.show();
