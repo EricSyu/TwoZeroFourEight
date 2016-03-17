@@ -141,30 +141,56 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="10dp">
 
-            <Button
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_star"
-                android:id="@+id/btn_star" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:background="#FFE4E1">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_exchange"
-                android:id="@+id/btn_exchange" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/title_try"
+                    android:id="@+id/show_try"
+                    android:gravity="center"
+                    android:textStyle="bold|normal"
+                    android:textSize="20sp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="#FF8800" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_star"
+                    android:src="@drawable/star1"
+                    android:background="@null" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/exchange1"
+                    android:background="@null"
+                    android:id="@+id/btn_exchange" />
+
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/btn_music_on"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/music_on1" />
+                android:src="@drawable/music_on1"
+                android:background="@null" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Test"
                 android:id="@+id/test" />
 
         </LinearLayout>
@@ -177,7 +203,7 @@
             android:id="@+id/TouchLayout"
             android:gravity="center"
             android:layout_weight="0.8"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_back">
 
             <LinearLayout

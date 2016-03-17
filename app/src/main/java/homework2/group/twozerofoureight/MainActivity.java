@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView view41, view42, view43, view44;
 
     private TextView text_appname, text_score, text_bestscore, show_score, show_bestscore;
-    private Button btn_newgame, btn_rank, btn_star, btn_exchange,btn_test;
-    private ImageButton btn_music;
+    private Button btn_newgame, btn_rank,btn_test;
+    private ImageButton  btn_star, btn_exchange, btn_music;
 
     private LinearLayout TouchSet;
 
@@ -201,8 +201,8 @@ public class MainActivity extends AppCompatActivity {
 
         btn_newgame = (Button)findViewById(R.id.btn_newgame);
         btn_rank = (Button)findViewById(R.id.btn_rank);
-        btn_star = (Button)findViewById(R.id.btn_star);
-        btn_exchange = (Button)findViewById(R.id.btn_exchange);
+        btn_star = (ImageButton)findViewById(R.id.btn_star);
+        btn_exchange = (ImageButton)findViewById(R.id.btn_exchange);
         btn_test = (Button)findViewById(R.id.test);
 
         btn_music = (ImageButton)findViewById(R.id.btn_music_on);
