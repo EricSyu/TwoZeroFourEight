@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
+
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     //music
     private MediaPlayer mp;
     private boolean isStoped = true;
+    private boolean music_stop = true;
 
     //Sound
     private static final int SOUND_COUNT = 3;
@@ -78,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        playMusic();
+        //Log.e("music_stop", String.valueOf(music_stop));
+        if(!music_stop)
+            playMusic();
         if(dbHper == null)//Database
             dbHper = new CompDBHper(this, DBName, null, DBVersion);
     }
@@ -86,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
+        music_stop = isStoped;
         stopMusic();//Stop music
         if(dbHper != null) { //Database Close dbHper
             dbHper.close();
@@ -97,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         stopMusic();//Stop music
-
-
     }
     private void initView(){
         view11 = (TextView)findViewById(R.id.view11);
@@ -683,7 +687,6 @@ public class MainActivity extends AppCompatActivity {
     private void stopMusic(){
         if( mp == null || isStoped)
             return;
-
         mp.stop();
         isStoped = true;
 
@@ -731,9 +734,14 @@ public class MainActivity extends AppCompatActivity {
     private Button.OnClickListener btnRecord = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            SimpleDateFormat now_month = new SimpleDateFormat("MM");
+            SimpleDateFormat now_date = new SimpleDateFormat("dd");
+            String date= now_month.format(new java.util.Date()) + "/" + now_date.format(new java.util.Date());
+
             String gamePlayer = "YKK";//待改
             String gameScore = "100";//Integer.toString(recordScore); //待改 分數
-            String gameDate = "3/10";//待改  抓現在時間
+            String gameDate = date ;
 
             long rowID = dbHper.insertRec(gamePlayer, gameScore, gameDate);
             String msg = "";

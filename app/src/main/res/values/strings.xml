@@ -2,6 +2,7 @@
     <string name="app_name">TwoZeroFourEight</string>
     <string name="action_settings">Settings</string>
 
+    <!--  Game  -->
     <string name="dia_gameover">GameOver</string>
     <string name="dia_gameover_msg">遊戲結束</string>
     <string name="dia_reset">Reset</string>
@@ -17,7 +18,7 @@
     <string name="title_star">STAR</string>
     <string name="title_exchange">EXCHANGE</string>
 
-    <!-- Rank -->
+    <!--  Rank  -->
     <string name="show_rank">RANK</string>
     <string name="rank_rank">Rank</string>
     <string name="rank_player">Player</string>

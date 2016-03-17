@@ -17,7 +17,6 @@ public class RankActivity extends AppCompatActivity {
     private static final int DBversion = 1;
     private CompDBHper dbHper;
     private ArrayList<String> recSet;
-    private  int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +29,11 @@ public class RankActivity extends AppCompatActivity {
 
     }
 
-    private TextView showRank1;
-    private TextView showRank2;
-    private TextView showRank3;
-    private TextView showRank4;
-    private TextView showRank5;
+    private TextView showScore1;
+    private TextView showScore2;
+    private TextView showScore3;
+    private TextView showScore4;
+    private TextView showScore5;
 
     private TextView showPlayer1;
     private TextView showPlayer2;
@@ -49,11 +48,11 @@ public class RankActivity extends AppCompatActivity {
     private TextView showDate5;
 
     private void initViews(){
-        showRank1 = (TextView) findViewById(R.id.show_score1);
-        showRank2 = (TextView) findViewById(R.id.show_score2);
-        showRank3 = (TextView) findViewById(R.id.show_score3);
-        showRank4 = (TextView) findViewById(R.id.show_score4);
-        showRank5 = (TextView) findViewById(R.id.show_score5);
+        showScore1 = (TextView) findViewById(R.id.show_score1);
+        showScore2 = (TextView) findViewById(R.id.show_score2);
+        showScore3 = (TextView) findViewById(R.id.show_score3);
+        showScore4 = (TextView) findViewById(R.id.show_score4);
+        showScore5 = (TextView) findViewById(R.id.show_score5);
 
         showPlayer1 = (TextView) findViewById(R.id.show_player1);
         showPlayer2 = (TextView) findViewById(R.id.show_player2);
@@ -99,53 +98,56 @@ public class RankActivity extends AppCompatActivity {
     private void showRec(){
         if(recSet.size() != 0){
             for(int i=0; i<recSet.size(); i++) {
-                String stHead = "共" + recSet.size() + "筆";
+                String stHead = "共" + recSet.size() + "筆";//------
 
                 String[] fld = recSet.get(i).split("#");
-                switch (index) {
+                switch (i) {
                     case 0:
-                        showRank1.setText(fld[0]);
-                        showPlayer1.setText(fld[1]);
+                        showPlayer1.setText(fld[0]);
+                        showScore1.setText(fld[1]);
                         showDate1.setText(fld[2]);
+                        break;
                     case 1:
-                        showRank2.setText(fld[0]);
-                        showPlayer2.setText(fld[1]);
+                        showPlayer2.setText(fld[0]);
+                        showScore2.setText(fld[1]);
                         showDate2.setText(fld[2]);
+                        break;
                     case 2:
-                        showRank3.setText(fld[0]);
-                        showPlayer3.setText(fld[1]);
+                        showPlayer3.setText(fld[0]);
+                        showScore3.setText(fld[1]);
                         showDate3.setText(fld[2]);
+                        break;
                     case 3:
-                        showRank4.setText(fld[0]);
-                        showPlayer4.setText(fld[1]);
+                        showPlayer4.setText(fld[0]);
+                        showScore4.setText(fld[1]);
                         showDate4.setText(fld[2]);
+                        break;
                     case 4:
-                        showRank5.setText(fld[0]);
-                        showPlayer5.setText(fld[1]);
+                        showPlayer5.setText(fld[0]);
+                        showScore5.setText(fld[1]);
                         showDate5.setText(fld[2]);
+                        break;
                 }
-                Toast.makeText(this, stHead, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, stHead, Toast.LENGTH_SHORT).show();//----
             }
         }else {
-            showRank1.setText("");
+            showScore1.setText("");
             showPlayer1.setText("");
             showDate1.setText("");
-            showRank2.setText("");
+            showScore2.setText("");
             showPlayer2.setText("");
             showDate2.setText("");
-            showRank3.setText("");
+            showScore3.setText("");
             showPlayer3.setText("");
             showDate3.setText("");
-            showRank4.setText("");
+            showScore4.setText("");
             showPlayer4.setText("");
             showDate4.setText("");
-            showRank5.setText("");
+            showScore5.setText("");
             showPlayer5.setText("");
             showDate5.setText("");
         }
     }
-
-
 
 
 }

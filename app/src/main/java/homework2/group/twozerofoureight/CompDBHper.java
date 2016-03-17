@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by Ykk on 16/3/16.
  */
 public class CompDBHper extends SQLiteOpenHelper {
-    private static final String TBName = "玩家";
+    private static final String TBName = "Rank";
     private static final String crTBsql =
             "CREATE TABLE " + TBName + " (" +
                     " gamePlayer VARCHAR(10), " +
@@ -20,7 +20,7 @@ public class CompDBHper extends SQLiteOpenHelper {
                     " gameDate VARCHAR(10) NOT NULL); " ;
 
     public CompDBHper(Context context, String DBName, SQLiteDatabase.CursorFactory factory, int DBversion ){
-        super(context, "排行榜.db", null, 1);
+        super(context, "Rank.db", null, 1);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class CompDBHper extends SQLiteOpenHelper {
 
     public ArrayList<String> getRecSet(){
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT * FROM " + TBName;
+        String sql = "SELECT * FROM " + TBName + " ORDER BY gameScore DESC";//Order by score
         Cursor recSet = db.rawQuery(sql, null);
         ArrayList<String> recAry = new ArrayList<String>();
         int columnCount = recSet.getColumnCount();
@@ -71,5 +71,14 @@ public class CompDBHper extends SQLiteOpenHelper {
         db.close();
         return recAry;
     }
+
+    //Clear all data
+    public void clearRec(){
+        SQLiteDatabase db = getReadableDatabase();
+        String clear_table = "DROP TABLE IS EXIST " + TBName;
+        db.execSQL(clear_table);
+    }
+
+
 
 }

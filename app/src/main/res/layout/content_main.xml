@@ -140,7 +140,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:gravity="center">
 
             <Button
                 android:layout_width="wrap_content"
@@ -153,11 +154,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_exchange"
                 android:id="@+id/btn_exchange" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView" />
 
             <ImageButton
                 android:id="@+id/btn_music_on"
