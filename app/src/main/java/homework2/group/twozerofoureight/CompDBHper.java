@@ -35,12 +35,12 @@ public class CompDBHper extends SQLiteOpenHelper {
     }
 
     //Add
-    public long insertRec(String gamePlayer, int gameScore, String gameTime){
+    public long insertRec(String gamePlayer, int gameScore, String gameDate){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues rec = new ContentValues();
         rec.put("gamePlayer", gamePlayer);
         rec.put("gameScore", gameScore);
-        rec.put("gameDate", gameTime);
+        rec.put("gameDate", gameDate);
         long rowID = db.insert(TBName, null, rec);
         db.close();
         return rowID;

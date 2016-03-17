@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -65,10 +64,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean music_stop = true;
 
     //Sound
-    private static final int SOUND_COUNT = 3;
+    private static final int SOUND_COUNT = 5;
     private int when_slide;
     private int when_plus;
     private int ui_click;
+    private int click_star;
+    private int when_gameover;
     private SoundPool soundPool;
 
     //Preference
@@ -213,6 +214,8 @@ public class MainActivity extends AppCompatActivity {
         ui_click = soundPool.load(this, R.raw.ui_click, 1);
         when_slide = soundPool.load(this, R.raw.slide, 1);
         when_plus = soundPool.load(this, R.raw.plus, 1);
+        when_gameover = soundPool.load(this, R.raw.gameover, 1);
+        click_star = soundPool.load(this, R.raw.star, 1);
 
     }
 
@@ -268,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
     private Button.OnClickListener set_star = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
-            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+            soundPool.play(click_star, 1, 1, 0, 0, 1);//sound
             random_flag = true;
             GameOverJudge(1);
             showView();
@@ -747,6 +750,7 @@ public class MainActivity extends AppCompatActivity {
             RandomView(setvalue);
             random_flag = false;
         } else if (gameover_flag && GameOver == 16){
+            soundPool.play(when_gameover, 1, 1, 0, 0, 1);//sound
             GameOverDialog();
         }
     }
