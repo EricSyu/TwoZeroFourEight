@@ -25,6 +25,7 @@ import android.widget.Toast;
 import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Random;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -32,19 +33,20 @@ import android.content.SharedPreferences.Editor;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
     private TextView view11, view12, view13, view14;
     private TextView view21, view22, view23, view24;
     private TextView view31, view32, view33, view34;
     private TextView view41, view42, view43, view44;
 
-    private TextView text_appname, text_score, text_bestscore, show_score;
+    private TextView text_appname, text_score, text_bestscore, show_score, show_bestscore;
     private Button btn_newgame, btn_rank, btn_star, btn_exchange,btn_test;
     private ImageButton btn_music;
 
     private LinearLayout TouchSet;
 
     private int [][]view_record = new int[5][5];
-    private int score;
+    private int score, min_score, max_score;
     private int GameOver;
     private boolean random_flag, gameover_flag;
 
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String DBName = "Rank.db";
     private static final int DBVersion = 1;
     private CompDBHper dbHper;
+    private ArrayList<String> recSet;
 
     //exchange
     private int ox, oy, nx, ny;
@@ -108,6 +111,24 @@ public class MainActivity extends AppCompatActivity {
             playMusic();
         if(dbHper == null)//Database
             dbHper = new CompDBHper(this, DBName, null, DBVersion);
+        recSet = dbHper.getRecSet();
+        getMinMaxscore();
+    }
+
+    private void getMinMaxscore(){
+        if(recSet.size() != 0){
+            String[] rank_1 = recSet.get(0).split("#");
+            String[] rank_last;
+            if(recSet.size()<=5){
+                rank_last = recSet.get(recSet.size()-1).split("#");
+            }
+            else{
+                rank_last = recSet.get(4).split("#");
+            }
+            max_score = Integer.valueOf(rank_1[1]);
+            min_score = Integer.valueOf(rank_last[1]);
+            show_bestscore.setText(rank_1[1]);
+        }
     }
 
     @Override
@@ -176,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         text_score = (TextView)findViewById(R.id.textView_score);
         show_score = (TextView)findViewById(R.id.show_score);
         text_bestscore = (TextView)findViewById(R.id.textView_bestscore);
+        show_bestscore = (TextView)findViewById(R.id.show_best);
 
         btn_newgame = (Button)findViewById(R.id.btn_newgame);
         btn_rank = (Button)findViewById(R.id.btn_rank);
@@ -679,7 +701,17 @@ public class MainActivity extends AppCompatActivity {
             gameover_flag = true;
             Judgement();
             if(gameover_flag){
-                GameOverDialog();
+                if(recSet.size()>=5){
+                    if(score>min_score){
+                        SetRankDialog();
+                    }
+                    else{
+                        GameOverDialog();
+                    }
+                }
+                else{
+                    SetRankDialog();
+                }
             }
         }
     }
@@ -721,6 +753,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GameOverDialog(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(R.string.dia_gameover);
+        dialog.setMessage("遊戲結束");
+        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void SetRankDialog(){
         LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
         final View v = inflater.inflate(R.layout.dialog_gameover, null);
 
@@ -984,7 +1029,17 @@ public class MainActivity extends AppCompatActivity {
     private Button.OnClickListener bttest = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            GameOverDialog();
+            if(recSet.size()>=5){
+                if(score>min_score){
+                    SetRankDialog();
+                }
+                else{
+                    GameOverDialog();
+                }
+            }
+            else{
+                SetRankDialog();
+            }
         }
     };
 }
