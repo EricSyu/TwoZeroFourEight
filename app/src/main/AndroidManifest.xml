@@ -19,7 +19,7 @@
         </activity>
         <activity
             android:name=".RankActivity"
-            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/show_rank" >
             <intent-filter>
                 <action android:name="bmi.action.report" /> <!-- ??? -->
