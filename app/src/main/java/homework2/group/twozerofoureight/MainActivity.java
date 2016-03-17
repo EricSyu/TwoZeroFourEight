@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
+
+import java.util.Calendar;
 import java.util.Random;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView view41, view42, view43, view44;
 
     private TextView text_appname, text_score, text_bestscore, show_score;
-    private Button btn_newgame, btn_rank, btn_star, btn_exchange;
+    private Button btn_newgame, btn_rank, btn_star, btn_exchange,btn_test;
     private ImageButton btn_music_on, btn_music_off;
 
     private LinearLayout TouchSet;
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private int score;
     private int GameOver;
     private boolean random_flag, gameover_flag;
+
+    //calender
+    private int month, day;
 
     //Database
     private static final String DBName = "Rank.db";
@@ -93,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         setListeners();
         initValue();
-        restorePrefs();
+        //restorePrefs();
         playMusic();
     }
 
@@ -144,9 +149,8 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         stopMusic();//Stop music
-
-
     }
+
     private void initView(){
         view11 = (TextView)findViewById(R.id.view11);
         view12 = (TextView)findViewById(R.id.view12);
@@ -177,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
         btn_rank = (Button)findViewById(R.id.btn_rank);
         btn_star = (Button)findViewById(R.id.btn_star);
         btn_exchange = (Button)findViewById(R.id.btn_exchange);
+        btn_test = (Button)findViewById(R.id.test);
+
         btn_music_on = (ImageButton)findViewById(R.id.btn_music_on);
         btn_music_off = (ImageButton) findViewById(R.id.btn_music_off);
         btn_music_off.setVisibility(View.INVISIBLE);
@@ -197,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         btn_rank.setOnClickListener(show_rank);
         btn_star.setOnClickListener(set_star);
         btn_exchange.setOnClickListener(exchange_view);
+        btn_test.setOnClickListener(bttest);
         btn_music_on.setOnClickListener(music_on);
         btn_music_off.setOnClickListener(music_off);
     }
@@ -244,7 +251,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
-            Log.i(TAG, "SET STAR");
             random_flag = true;
             GameOverJudge(1);
             showView();
@@ -256,7 +262,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
-            Log.i(TAG,"exchange");
             ExchangeDialog();
         }
     };
@@ -723,12 +728,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GameOverDialog(){
+        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+        final View v = inflater.inflate(R.layout.dialog_gameover, null);
+
+        Calendar c = Calendar.getInstance();
+        month = c.get(Calendar.MONTH);
+        day = c.get(Calendar.DAY_OF_MONTH);
+        Log.i(TAG, String.valueOf(month) + "/" + String.valueOf(day));
+
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setTitle(R.string.dia_gameover);
-        dialog.setMessage(getString(R.string.dia_gameover_msg));
+        dialog.setMessage(getString(R.string.dia_gameover_msg) + score + "分");
+        dialog.setView(v);
+        final EditText user_name = (EditText)v.findViewById(R.id.username);
         dialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String gamePlayer = user_name.getText().toString();
+                String gameDate = String.valueOf(month) + "/" + String.valueOf(day);//待改  抓現在時間
+
+                long rowID = dbHper.insertRec(gamePlayer, score, gameDate);
+                String msg = "";
+                if(rowID != -1){
+                    msg = "Success!\n" + "There are " + dbHper.RecCount() + " record.";
+                }else{
+                    msg = "Add record fail!";
+                }
+
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
         dialog.show();
@@ -753,6 +780,50 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void ExchangeDialog(){
+
+        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+        final View v = inflater.inflate(R.layout.dialog_exchange, null);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle(R.string.title_exchange);
+        dialog.setView(v);
+        final EditText old_x = (EditText)v.findViewById(R.id.old_x);
+        final EditText old_y = (EditText)v.findViewById(R.id.old_y);
+        final EditText new_x = (EditText)v.findViewById(R.id.new_x);
+        final EditText new_y = (EditText)v.findViewById(R.id.new_y);
+
+        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ox = Integer.valueOf(old_x.getText().toString());
+                oy = Integer.valueOf(old_y.getText().toString());
+                nx = Integer.valueOf(new_x.getText().toString());
+                ny = Integer.valueOf(new_y.getText().toString());
+                if(ox > 4 || oy > 4 || nx > 4 || ny > 4){
+                    ExchangeDialog();
+                    Toast.makeText(MainActivity.this, "請輸入1~4到之間", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Swap(ox, oy, nx, ny);
+                    showView();
+                }
+            }
+        });
+        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void Swap(int i, int j, int m, int n){
+        int tmp = view_record[i][j];
+        view_record[i][j] = view_record[m][n];
+        view_record[m][n] = tmp;
+    }
 
     private void restorePrefs(){
         SharedPreferences record = getSharedPreferences(pref,0);
@@ -778,7 +849,6 @@ public class MainActivity extends AppCompatActivity {
         }
         String pre_record14 = record.getString(PRE_record14,"");
         if(!"".equals(pre_record14)) {
-            view_record[1][4] = Integer.valueOf(pre_record14);
             view14.setText(pre_record14);
             view_record[1][4] = Integer.valueOf(pre_record14);
         }
@@ -845,52 +915,6 @@ public class MainActivity extends AppCompatActivity {
             view44.setText(pre_record44);
             view_record[4][4] = Integer.valueOf(pre_record44);
         }
-    }
-
-
-    private void ExchangeDialog(){
-
-        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-        final View v = inflater.inflate(R.layout.dialog_exchange, null);
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setTitle(R.string.title_exchange);
-        dialog.setView(v);
-        final EditText old_x = (EditText)v.findViewById(R.id.old_x);
-        final EditText old_y = (EditText)v.findViewById(R.id.old_y);
-        final EditText new_x = (EditText)v.findViewById(R.id.new_x);
-        final EditText new_y = (EditText)v.findViewById(R.id.new_y);
-
-        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ox = Integer.valueOf(old_x.getText().toString());
-                oy = Integer.valueOf(old_y.getText().toString());
-                nx = Integer.valueOf(new_x.getText().toString());
-                ny = Integer.valueOf(new_y.getText().toString());
-                if(ox > 4 || oy > 4 || nx > 4 || ny > 4){
-                    ExchangeDialog();
-                    Toast.makeText(MainActivity.this, "請輸入1~4到之間", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Swap(ox, oy, nx, ny);
-                    showView();
-                }
-            }
-        });
-        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        dialog.show();
-    }
-
-    private void Swap(int i, int j, int m, int n){
-        int tmp = view_record[i][j];
-        view_record[i][j] = view_record[m][n];
-        view_record[m][n] = tmp;
     }
 
     @Override
@@ -972,25 +996,10 @@ public class MainActivity extends AppCompatActivity {
     };
 
     //Database  add record
-    private Button.OnClickListener btnRecord = new View.OnClickListener() {
+    private Button.OnClickListener bttest = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String gamePlayer = "YKK";//待改
-            String gameScore = "100";//Integer.toString(recordScore); //待改 分數
-            String gameDate = "3/10";//待改  抓現在時間
-
-            long rowID = dbHper.insertRec(gamePlayer, gameScore, gameDate);
-            String msg = "";
-            if(rowID != -1){
-                msg = "Success!\n" + "There are " + dbHper.RecCount() + " record.";
-            }else{
-                msg = "Add record fail!";
-            }
-
-            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            GameOverDialog();
         }
     };
-
-
-
 }

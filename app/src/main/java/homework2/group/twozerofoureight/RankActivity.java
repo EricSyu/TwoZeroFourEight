@@ -23,11 +23,7 @@ public class RankActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
-
         initViews();
-        initDB();
-        showRec();
-
     }
 
     private TextView showRank1;
@@ -69,13 +65,6 @@ public class RankActivity extends AppCompatActivity {
 
     }
 
-    private void initDB(){
-        if(dbHper==null)
-            dbHper = new CompDBHper(this, DBName, null, DBversion);
-        //dbHper.creatTB();
-        recSet = dbHper.getRecSet();
-    }
-
     @Override
     public void onResume(){
         super.onResume();
@@ -102,27 +91,32 @@ public class RankActivity extends AppCompatActivity {
                 String stHead = "共" + recSet.size() + "筆";
 
                 String[] fld = recSet.get(i).split("#");
-                switch (index) {
+                switch (i) {
                     case 0:
-                        showRank1.setText(fld[0]);
-                        showPlayer1.setText(fld[1]);
+                        showPlayer1.setText(fld[0]);
+                        showRank1.setText(fld[1]);
                         showDate1.setText(fld[2]);
+                        break;
                     case 1:
-                        showRank2.setText(fld[0]);
-                        showPlayer2.setText(fld[1]);
+                        showPlayer2.setText(fld[0]);
+                        showRank2.setText(fld[1]);
                         showDate2.setText(fld[2]);
+                        break;
                     case 2:
-                        showRank3.setText(fld[0]);
-                        showPlayer3.setText(fld[1]);
+                        showPlayer3.setText(fld[0]);
+                        showRank3.setText(fld[1]);
                         showDate3.setText(fld[2]);
+                        break;
                     case 3:
-                        showRank4.setText(fld[0]);
-                        showPlayer4.setText(fld[1]);
+                        showPlayer4.setText(fld[0]);
+                        showRank4.setText(fld[1]);
                         showDate4.setText(fld[2]);
+                        break;
                     case 4:
-                        showRank5.setText(fld[0]);
-                        showPlayer5.setText(fld[1]);
+                        showPlayer5.setText(fld[0]);
+                        showRank5.setText(fld[1]);
                         showDate5.setText(fld[2]);
+                        break;
                 }
                 Toast.makeText(this, stHead, Toast.LENGTH_SHORT).show();
             }
@@ -144,8 +138,4 @@ public class RankActivity extends AppCompatActivity {
             showDate5.setText("");
         }
     }
-
-
-
-
 }
