@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -119,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v(TAG, "onPause");
         SharedPreferences record = getSharedPreferences(pref, 0);
         Editor editor = record.edit();
-        editor.putString(pre_score, text_score.getText().toString());
+        editor.putString(pre_score, show_score.getText().toString());
         editor.putString(PRE_record11, view11.getText().toString());
         editor.putString(PRE_record12, view12.getText().toString());
         editor.putString(PRE_record13, view13.getText().toString());
@@ -515,101 +517,549 @@ public class MainActivity extends AppCompatActivity {
         if(view_record[1][1]!=0){
 
             view11.setText(String.valueOf(view_record[1][1]));
+            switch (view_record[1][1]){
+                case 1:
+                    view11.setText("");
+                    view11.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view11.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view11.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view11.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view11.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view11.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view11.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view11.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view11.setText("");
+            view11.setBackgroundResource(R.drawable.btn_view);
         }
         if (view_record[1][2]!=0){
 
             view12.setText(String.valueOf(view_record[1][2]));
+            switch (view_record[1][2]){
+                case 1:
+                    view12.setText("");
+                    view12.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view12.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view12.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view12.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view12.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view12.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view12.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view12.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view12.setText("");
+            view12.setBackgroundResource(R.drawable.btn_view);
         }
         if(view_record[1][3]!=0){
 
             view13.setText(String.valueOf(view_record[1][3]));
+            switch (view_record[1][3]){
+                case 1:
+                    view13.setText("");
+                    view13.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view13.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view13.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view13.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view13.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view13.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view13.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view13.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view13.setText("");
+            view13.setBackgroundResource(R.drawable.btn_view);
         }
         if(view_record[1][4]!=0){
 
             view14.setText(String.valueOf(view_record[1][4]));
+            switch (view_record[1][4]){
+                case 1:
+                    view14.setText("");
+                    view14.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view14.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view14.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view14.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view14.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view14.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view14.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view14.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view14.setText("");
+            view14.setBackgroundResource(R.drawable.btn_view);
         }
 
         if(view_record[2][1]!=0){
 
             view21.setText(String.valueOf(view_record[2][1]));
+            switch (view_record[2][1]){
+                case 1:
+                    view21.setText("");
+                    view21.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view21.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view21.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view21.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view21.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view21.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view21.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view21.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view21.setText("");
+            view21.setBackgroundResource(R.drawable.btn_view);
         }
         if (view_record[2][2]!=0){
 
             view22.setText(String.valueOf(view_record[2][2]));
+            switch (view_record[2][2]){
+                case 1:
+                    view22.setText("");
+                    view22.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view22.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view22.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view22.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view22.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view22.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view22.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view22.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view22.setText("");
+            view22.setBackgroundResource(R.drawable.btn_view);
         }
         if(view_record[2][3]!=0){
 
             view23.setText(String.valueOf(view_record[2][3]));
+            switch (view_record[2][3]){
+                case 1:
+                    view23.setText("");
+                    view23.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view23.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view23.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view23.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view23.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view23.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view23.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view23.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view23.setText("");
+            view23.setBackgroundResource(R.drawable.btn_view);
         }
         if(view_record[2][4]!=0){
 
             view24.setText(String.valueOf(view_record[2][4]));
+            switch (view_record[2][4]){
+                case 1:
+                    view24.setText("");
+                    view24.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view24.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view24.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view24.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view24.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view24.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view24.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view24.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view24.setText("");
+            view24.setBackgroundResource(R.drawable.btn_view);
         }
 
         if (view_record[3][1]!=0){
 
             view31.setText(String.valueOf(view_record[3][1]));
+            switch (view_record[3][1]){
+                case 1:
+                    view31.setText("");
+                    view31.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view31.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view31.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view31.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view31.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view31.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view31.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view31.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view31.setText("");
+            view31.setBackgroundResource(R.drawable.btn_view);
         }
         if(view_record[3][2]!=0){
 
             view32.setText(String.valueOf(view_record[3][2]));
+            switch (view_record[3][2]){
+                case 1:
+                    view32.setText("");
+                    view32.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view32.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view32.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view32.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view32.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view32.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view32.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view32.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view32.setText("");
+            view32.setBackgroundResource(R.drawable.btn_view);
         }
         if(view_record[3][3]!=0){
 
             view33.setText(String.valueOf(view_record[3][3]));
+            switch (view_record[3][3]){
+                case 1:
+                    view33.setText("");
+                    view33.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view33.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view33.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view33.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view33.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view33.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view33.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view33.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view33.setText("");
+            view33.setBackgroundResource(R.drawable.btn_view);
         }
         if (view_record[3][4]!=0) {
 
             view34.setText(String.valueOf(view_record[3][4]));
+            switch (view_record[3][4]){
+                case 1:
+                    view34.setText("");
+                    view34.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view34.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view34.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view34.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view34.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view34.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view34.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view34.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view34.setText("");
+            view34.setBackgroundResource(R.drawable.btn_view);
         }
 
         if(view_record[4][1]!=0){
 
             view41.setText(String.valueOf(view_record[4][1]));
+            switch (view_record[4][1]){
+                case 1:
+                    view41.setText("");
+                    view41.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view41.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view41.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view41.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view41.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view41.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view41.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view41.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view41.setText("");
+            view41.setBackgroundResource(R.drawable.btn_view);
         }
         if (view_record[4][2]!=0){
 
             view42.setText(String.valueOf(view_record[4][2]));
+            switch (view_record[4][2]){
+                case 1:
+                    view42.setText("");
+                    view42.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view42.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view42.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view42.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view42.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view42.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view42.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view42.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view42.setText("");
+            view42.setBackgroundResource(R.drawable.btn_view);
         }
         if(view_record[4][3]!=0){
 
             view43.setText(String.valueOf(view_record[4][3]));
+            switch (view_record[4][3]){
+                case 1:
+                    view43.setText("");
+                    view43.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view43.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view43.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view43.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view43.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view43.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view43.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view43.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view43.setText("");
+            view43.setBackgroundResource(R.drawable.btn_view);
         }
         if (view_record[4][4]!=0){
 
             view44.setText(String.valueOf(view_record[4][4]));
+            switch (view_record[4][4]){
+                case 1:
+                    view44.setText("");
+                    view44.setBackgroundResource(R.drawable.star_icon);
+                    break;
+                case 2:
+                    view44.setBackgroundColor(0xffeee4da);
+                    break;
+                case 4:
+                    view44.setBackgroundColor(0xffede0c8);
+                    break;
+                case 8:
+                    view44.setBackgroundColor(0xfff2b179);
+                    break;
+                case 16:
+                    view44.setBackgroundColor(0xfff59563);
+                    break;
+                case 32:
+                    view44.setBackgroundColor(0x80ff0000);
+                    break;
+                case 64:
+                    view44.setBackgroundColor(Color.YELLOW);
+                    break;
+                default:
+                    view44.setBackgroundResource(R.drawable.btn_view);
+                    break;
+            }
         }else{
             view44.setText("");
+            view44.setBackgroundResource(R.drawable.btn_view);
         }
     }
 
