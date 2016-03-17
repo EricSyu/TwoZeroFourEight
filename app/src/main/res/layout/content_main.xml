@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="20000"
+                    android:text="0"
                     android:id="@+id/show_score"
                     android:background="@drawable/btn_score_down"
                     android:gravity="center_horizontal"
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="20000"
+                    android:text="0"
                     android:id="@+id/show_best"
                     android:background="@drawable/btn_score_down"
                     android:gravity="center_horizontal"
@@ -160,12 +160,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/music_on1" />
-
-            <ImageButton
-                android:id="@+id/btn_music_off"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/music_off1" />
 
             <Button
                 android:layout_width="wrap_content"
