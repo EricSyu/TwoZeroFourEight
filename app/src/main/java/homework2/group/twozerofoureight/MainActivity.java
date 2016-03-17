@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView text_appname, text_score, text_bestscore, show_score;
     private Button btn_newgame, btn_rank, btn_star, btn_exchange,btn_test;
-    private ImageButton btn_music_on, btn_music_off;
+    private ImageButton btn_music;
 
     private LinearLayout TouchSet;
 
@@ -183,9 +184,7 @@ public class MainActivity extends AppCompatActivity {
         btn_exchange = (Button)findViewById(R.id.btn_exchange);
         btn_test = (Button)findViewById(R.id.test);
 
-        btn_music_on = (ImageButton)findViewById(R.id.btn_music_on);
-        btn_music_off = (ImageButton) findViewById(R.id.btn_music_off);
-        btn_music_off.setVisibility(View.INVISIBLE);
+        btn_music = (ImageButton)findViewById(R.id.btn_music_on);
 
         TouchSet = (LinearLayout)findViewById(R.id.TouchLayout);
 
@@ -204,8 +203,7 @@ public class MainActivity extends AppCompatActivity {
         btn_star.setOnClickListener(set_star);
         btn_exchange.setOnClickListener(exchange_view);
         btn_test.setOnClickListener(bttest);
-        btn_music_on.setOnClickListener(music_on);
-        btn_music_off.setOnClickListener(music_off);
+        btn_music.setOnClickListener(music_control);
     }
 
     private void initValue(){
@@ -343,7 +341,6 @@ public class MainActivity extends AppCompatActivity {
                 j++;
                 i = j;
 
-
                 show_score.setText(""+score);
 
                 GameOver--;
@@ -375,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
                 score += view_record[i][index];
                 j++;
                 i = j;
-
 
                 show_score.setText(""+score);
 
@@ -409,7 +405,6 @@ public class MainActivity extends AppCompatActivity {
                 j--;
                 i = j;
 
-
                 show_score.setText("" + score);
 
                 GameOver--;
@@ -442,7 +437,6 @@ public class MainActivity extends AppCompatActivity {
 
                 j--;
                 i = j;
-
 
                 show_score.setText(""+score);
 
@@ -974,24 +968,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private Button.OnClickListener music_on = new Button.OnClickListener(){
+    private Button.OnClickListener music_control = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
-            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
-            stopMusic();
-            btn_music_on.setVisibility(View.INVISIBLE);
-            btn_music_off.setVisibility(View.VISIBLE);
-
-        }
-    };
-
-    private Button.OnClickListener music_off = new Button.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
-            playMusic();
-            btn_music_off.setVisibility(View.INVISIBLE);
-            btn_music_on.setVisibility(View.VISIBLE);
+            Log.i(TAG, String.valueOf(isStoped));
+            if(!isStoped){
+                soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+                stopMusic();
+                btn_music.setImageResource(R.drawable.music_off1);
+            }
+            else{
+                soundPool.play(ui_click, 1, 1, 0, 0, 1);//sound
+                playMusic();
+                btn_music.setImageResource(R.drawable.music_on1);
+            }
         }
     };
 
