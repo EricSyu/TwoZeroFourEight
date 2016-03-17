@@ -11,7 +11,6 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -49,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private int GameOver;
     private boolean random_flag, gameover_flag;
 
-    //calender
-    private int month, day;
-
     //Database
     private static final String DBName = "Rank.db";
     private static final int DBVersion = 1;
@@ -63,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     //music
     private MediaPlayer mp;
     private boolean isStoped = true;
+    private boolean music_stop = true;
 
     //Sound
     private static final int SOUND_COUNT = 3;
@@ -107,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        playMusic();
+        if(!music_stop)
+            playMusic();
         if(dbHper == null)//Database
             dbHper = new CompDBHper(this, DBName, null, DBVersion);
     }
@@ -115,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
+        music_stop = isStoped;
         stopMusic();//Stop music
         if(dbHper != null) { //Database Close dbHper
             dbHper.close();
@@ -725,11 +724,6 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
         final View v = inflater.inflate(R.layout.dialog_gameover, null);
 
-        Calendar c = Calendar.getInstance();
-        month = c.get(Calendar.MONTH);
-        day = c.get(Calendar.DAY_OF_MONTH);
-        Log.i(TAG, String.valueOf(month) + "/" + String.valueOf(day));
-
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setTitle(R.string.dia_gameover);
         dialog.setMessage(getString(R.string.dia_gameover_msg) + score + "分");
@@ -739,9 +733,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String gamePlayer = user_name.getText().toString();
-                String gameDate = String.valueOf(month) + "/" + String.valueOf(day);//待改  抓現在時間
+                SimpleDateFormat now_month = new SimpleDateFormat("MM");
+                SimpleDateFormat now_date = new SimpleDateFormat("dd");
+                String date= now_month.format(new java.util.Date()) + "/" + now_date.format(new java.util.Date());
 
-                long rowID = dbHper.insertRec(gamePlayer, score, gameDate);
+                long rowID = dbHper.insertRec(gamePlayer, score, date);
                 String msg = "";
                 if(rowID != -1){
                     msg = "Success!\n" + "There are " + dbHper.RecCount() + " record.";
@@ -945,7 +941,6 @@ public class MainActivity extends AppCompatActivity {
     private void stopMusic(){
         if( mp == null || isStoped)
             return;
-
         mp.stop();
         isStoped = true;
 
@@ -989,6 +984,23 @@ public class MainActivity extends AppCompatActivity {
     private Button.OnClickListener bttest = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            SimpleDateFormat now_month = new SimpleDateFormat("MM");
+            SimpleDateFormat now_date = new SimpleDateFormat("dd");
+            String date= now_month.format(new java.util.Date()) + "/" + now_date.format(new java.util.Date());
+
+            String gamePlayer = "YKK";//待改
+            int gameScore = 100;//Integer.toString(recordScore); //待改 分數
+            String gameDate = date ;
+
+            long rowID = dbHper.insertRec(gamePlayer, gameScore, gameDate);
+            String msg = "";
+            if(rowID != -1){
+                msg = "Success!\n" + "There are " + dbHper.RecCount() + " record.";
+            }else{
+                msg = "Add record fail!";
+            }
+
+            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             GameOverDialog();
         }
     };
