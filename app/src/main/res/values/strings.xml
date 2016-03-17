@@ -25,9 +25,9 @@
     <string name="rank_score">Score</string>
     <string name="rank_date">Date</string>
 
-    <string name="rank_one">1-</string>
-    <string name="rank_two">2-</string>
-    <string name="rank_three">3-</string>
-    <string name="rank_four">4-</string>
-    <string name="rank_five">5-</string>
+    <string name="rank_one">1</string>
+    <string name="rank_two">2</string>
+    <string name="rank_three">3</string>
+    <string name="rank_four">4</string>
+    <string name="rank_five">5</string>
 </resources>
