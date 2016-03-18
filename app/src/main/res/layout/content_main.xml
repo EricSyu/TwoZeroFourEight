@@ -141,16 +141,15 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:gravity="center">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="3"
-            android:background="@drawable/bg_tryit">
+            android:background="@drawable/bg_tryit"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -164,41 +163,36 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="#FF8800"
-                android:layout_weight="1"
                 android:textAlignment="center" />
 
             <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:id="@+id/btn_star"
                 android:src="@drawable/star1"
-                android:background="@null"
-                android:layout_weight="1" />
+                android:background="@null" />
 
             <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:src="@drawable/exchange1"
                 android:background="@null"
-                android:id="@+id/btn_exchange"
-                android:layout_weight="1" />
+                android:id="@+id/btn_exchange" />
 
             <ImageButton
                 android:id="@+id/btn_music_on"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:src="@drawable/music_on1"
-                android:background="@null"
-                android:layout_weight="1" />
+                android:background="@null" />
 
         </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="GameOver"
+            android:text="Game\r\nOver"
             android:id="@+id/test"
-            android:layout_weight="1"
             android:layout_marginLeft="8dp"
             android:background="@drawable/bg_tryit" />
 
