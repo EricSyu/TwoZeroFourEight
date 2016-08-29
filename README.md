@@ -1,4 +1,4 @@
-## TwoZeroFourEight
+# TwoZeroFourEight
 2048 is a popular game before.<br>
 we developed all by ourselves and added some interesting feature.<br>
 
