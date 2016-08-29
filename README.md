@@ -10,9 +10,9 @@ we developed all by ourselves and added some interesting feature.<br>
 * Leaderboard
 
 ## Game Play
-When sliding in the blocks, the neightor blocks of the same number will be combined.
-The special star can be combined with any other block.
-The exchange button can exchange the position of two blocks arbitrarily.
+When sliding in the blocks, the neightor blocks of the same number will be combined.<br>
+The special star can be combined with any other block.<br>
+The exchange button can exchange the position of two blocks arbitrarily.<br>
 
 ## Screenshot
 ![Image01](https://github.com/EricSyu/TwoZeroFourEight/blob/master/image/01.png?raw=true "Game screen")
